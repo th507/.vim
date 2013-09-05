@@ -21,10 +21,6 @@ NeoBundle 'joestelmach/lint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'dag/vim-fish'
 NeoBundle 'jeetsukumaran/vim-buffergator'
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'Shougo/vimshell.vim'
-" on rare occasion we might as well run installer manually
-"NeoBundleCheck
 
 "remove left side scrollbar
 set guioptions-=L
@@ -157,11 +153,6 @@ let g:BufferListMaxWidth = 50
 map <Leader><Leader> :BuffergatorToggle<CR>
 vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
-
-"nmap <leader><left>   :leftabove  vnew<CR>
-"nmap <leader><right>  :rightbelow vnew<CR>
-"nmap <leader><up>     :leftabove  new<CR>
-"nmap <leader><down>   :rightbelow new<CR>
 
 " tab new
 map <D-t> :tabnew<CR>
