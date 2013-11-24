@@ -59,6 +59,8 @@ let g:js_context_colors_usemaps = 0
 NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+NeoBundle "tyok/nerdtree-ack"
+
 " i j k l for up, left, down, and right
 " h for insert mode
 map i <Up>
@@ -256,6 +258,7 @@ cnorea et e ++enc=taiwan
 
 
 " NERDTree related
+let NERDTreeShowBookmarks=1
 map <C-Bslash> :NERDTreeTabsToggle<CR>
 vnoremap <silent><C-Bslash> <C-C>:NERDTreeTabsToggle<CR>
 inoremap <silent><C-Bslash> <C-O>:NERDTreeTabsToggle<CR>
