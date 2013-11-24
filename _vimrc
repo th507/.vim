@@ -213,7 +213,7 @@ colo molokai
 au BufRead,BufNewFile *.coffee set ft=coffee
 let g:coffeeCheckHighlightErrorLine = 1
 autocmd Filetype html let g:xml_syntax_folding = 1
-autocmd Filetype html set foldmethod=syntax
+autocmd Filetype html set foldmethod=manual
 
 " NERDTree related
 let g:nerdtree_tabs_open_on_gui_startup = 0
