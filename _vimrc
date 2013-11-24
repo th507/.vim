@@ -256,9 +256,9 @@ cnorea et e ++enc=taiwan
 
 
 " NERDTree related
-map <D-Bslash> :NERDTreeTabsToggle<CR>
-vnoremap <silent><D-Bslash> <C-C>:NERDTreeTabsToggle<CR>
-inoremap <silent><D-Bslash> <C-O>:NERDTreeTabsToggle<CR>
+map <C-Bslash> :NERDTreeTabsToggle<CR>
+vnoremap <silent><C-Bslash> <C-C>:NERDTreeTabsToggle<CR>
+inoremap <silent><C-Bslash> <C-O>:NERDTreeTabsToggle<CR>
 
 " bufferlist
 let g:BufferListWidth = 25
