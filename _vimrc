@@ -1,4 +1,5 @@
 set nocompatible
+set shortmess=aI
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -13,6 +14,7 @@ NeoBundle 'mattn/emmet-vim'
 
 " Coffee-script
 NeoBundle 'kchmck/vim-coffee-script'
+" does not warn about ending line with spaces
 NeoBundle 'othree/coffee-check.vim'
 
 " HATML, Sass and SCSS
@@ -31,6 +33,9 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 
 NeoBundle 'ervandew/supertab'
+
+" maybe this?
+"NeoBundle "Valloric/YouCompleteMe"
 "NeoBundle 'Shougo/neocomplete.vim'
 
 "NeoBundle 'tpope/vim-surround'
@@ -45,21 +50,41 @@ NeoBundle "jtratner/vim-flavored-markdown"
 
 " TaskPaper
 NeoBundle "davidoc/taskpaper.vim"
+NeoBundle "mattn/calendar-vim"
 
-" JS Scope
-NeoBundle 'bigfish/vim-js-context-coloring', {
+
+NeoBundle "Shougo/vimproc.vim"
+NeoBundle "Shougo/vimshell.vim"
+NeoBundle 'Shougo/vimshell.vim', {
   \ 'build' : {
-  \     'mac' : 'npm install --update',
-  \     'unix' : 'npm install --update',
+  \     'mac' : 'make',
+  \     'unix' : 'make',
   \    },
   \ }
-let g:js_context_colors_enabled = 0
-let g:js_context_colors_usemaps = 0
 
+" Use current directory as vimshell prompt.
+" let g:vimshell_prompt_expr =
+" \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+" let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+
+" JS Scope
+" NeoBundle 'bigfish/vim-js-context-coloring', {
+"   \ 'build' : {
+"   \     'mac' : 'npm install --update',
+"   \     'unix' : 'npm install --update',
+"   \    },
+"   \ }
+" let g:js_context_colors_enabled = 0
+" let g:js_context_colors_usemaps = 0
+
+" why do you aks
 NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 NeoBundle "tyok/nerdtree-ack"
+
+" git
+NeoBundle "tpope/vim-fugitive"
 
 " i j k l for up, left, down, and right
 " h for insert mode
@@ -93,8 +118,6 @@ set backspace=indent,eol,start
 set splitbelow
 set splitright
 
-" setting up xmledit for html file
-let g:xmledit_enable_html=1
 
 syntax on
 filetype plugin indent on
@@ -129,7 +152,7 @@ set matchtime=1
 " Set to auto read when a file is changed from the outside
 set autoread
 " Set to the current folder
-set autochdir
+" set autochdir
 
 
 "To search for a word under the cursor from the current cursor position to the
@@ -154,7 +177,7 @@ set wildmode=list:longest
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " supertab
-"let g:SuperTabMappingBackward = '<s-tab>'
+let g:SuperTabMappingBackward = '<s-tab>'
 
 set complete=.,w,b,u,t
 "set complete=.
@@ -194,8 +217,8 @@ noremap <Leader>] :call ToggleFold()<CR>
 
 
 " There are conflicts with the AutoComplPop script.
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
+" autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
+" autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
 
 
 
@@ -211,9 +234,17 @@ set background=dark
 colo molokai
 
 au BufRead,BufNewFile *.coffee set ft=coffee
+auto Filetype coffee set shiftwidth=4 softtabstop=4 expandtab
+
 let g:coffeeCheckHighlightErrorLine = 1
+
+" setting up xmledit for html file
+let g:xmledit_enable_html=1
+
 autocmd Filetype html let g:xml_syntax_folding = 1
 autocmd Filetype html set foldmethod=manual
+
+au BufRead,BufNewFile *.taskpapertheme  set ft=xml
 
 " NERDTree related
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -234,18 +265,32 @@ endif
 set laststatus=2 " Always display the statusline in all windows
 
 
-" In visual mode, git blame the selection
-function! GitBlame() range
-" look up function-range-example for more information
-    let beg_line = line("'<")
-    let end_line = line("'>")
-    exec '!git blame -L '. beg_line. ','. end_line. ' %'
-endfunction
-vnoremap <leader>g :call GitBlame()<CR>
- 
-" In normal mode, git blame the current line
-nnoremap <leader>g :exec '!git blame -L '. line("."). ','. line("."). ' %'<CR>
+"lets you use w!! to do that after you opened the file already:
+cmap w!! w !sudo tee % >/dev/null
 
+" In visual mode, git blame the selection
+" function! GitBlame() range
+" " look up function-range-example for more information
+"     let beg_line = line("'<")
+"     let end_line = line("'>")
+"     exec '!git blame -L '. beg_line. ','. end_line. ' %'
+" endfunction
+" vnoremap <leader>g :call GitBlame()<CR>
+"  
+" " In normal mode, git blame the current line
+" nnoremap <leader>g :exec '!git blame -L '. line("."). ','. line("."). ' %'<CR>
+
+" improved upon http://usevim.com/2013/11/29/pollution/
+if did_filetype()
+  finish
+endif
+if getline(1) =~# '^#!.*/bin/env\s\+node\>'
+  setfiletype javascript
+else
+    if getline(1) =~# '^#!.*/bin/env\s\+node\>'
+        setfiletype coffee
+    endif
+endif
 
 " KEYMAP
 
