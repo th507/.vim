@@ -53,14 +53,13 @@ NeoBundle "davidoc/taskpaper.vim"
 NeoBundle "mattn/calendar-vim"
 
 
-NeoBundle "Shougo/vimproc.vim"
-NeoBundle "Shougo/vimshell.vim"
-NeoBundle 'Shougo/vimshell.vim', {
+NeoBundle 'Shougo/vimproc.vim', {
   \ 'build' : {
   \     'mac' : 'make',
   \     'unix' : 'make',
   \    },
   \ }
+NeoBundle "Shougo/vimshell.vim"
 
 " Use current directory as vimshell prompt.
 " let g:vimshell_prompt_expr =
