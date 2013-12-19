@@ -176,7 +176,9 @@ set wildmode=list:longest
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " supertab
-let g:SuperTabMappingBackward = '<s-tab>'
+let g:SuperTabMappingBackward = '<c-tab>'
+let g:SuperTabMappingTabLiteral = '<s-tab>'
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 set complete=.,w,b,u,t
 "set complete=.
@@ -190,7 +192,6 @@ if len(letter) == 1
         let letter = nr2char(char2nr(letter)+1)
     endwhile
 endif
-let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Toggle fold state between closed and opened.
 "
