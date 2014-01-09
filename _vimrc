@@ -53,14 +53,6 @@ NeoBundle "davidoc/taskpaper.vim"
 NeoBundle "mattn/calendar-vim"
 
 
-NeoBundle 'Shougo/vimproc.vim', {
-  \ 'build' : {
-  \     'mac' : 'make',
-  \     'unix' : 'make',
-  \    },
-  \ }
-NeoBundle "Shougo/vimshell.vim"
-
 " Use current directory as vimshell prompt.
 " let g:vimshell_prompt_expr =
 " \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
@@ -151,7 +143,7 @@ set matchtime=1
 " Set to auto read when a file is changed from the outside
 set autoread
 " Set to the current folder
-" set autochdir
+set autochdir
 
 
 "To search for a word under the cursor from the current cursor position to the
