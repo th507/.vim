@@ -18,7 +18,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'othree/coffee-check.vim'
 
 " HATML, Sass and SCSS
-NeoBundle 'gummesson/companion.vim'
+"NeoBundle 'gummesson/companion.vim'
 " JavaScript/CSS validator
 NeoBundle 'joestelmach/lint.vim'
 
@@ -32,10 +32,15 @@ NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 
-NeoBundle 'ervandew/supertab'
+"NeoBundle 'ervandew/supertab'
 
 " maybe this?
-"NeoBundle "Valloric/YouCompleteMe"
+NeoBundle "Valloric/YouCompleteMe", {
+	\ "build" : {
+	\ 	"mac" : "./install.sh --clang-completer",
+	\	"linux" : "./install.sh --clang-completer",
+	\ },
+\ }
 "NeoBundle 'Shougo/neocomplete.vim'
 
 "NeoBundle 'tpope/vim-surround'
@@ -168,22 +173,21 @@ set wildmode=list:longest
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " supertab
-let g:SuperTabMappingBackward = '<c-tab>'
-let g:SuperTabMappingTabLiteral = '<s-tab>'
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-set complete=.,w,b,u,t
-"set complete=.
-set completeopt=menu,preview
-
-" Map all keys to Auto complete
-let letter = "a"
-if len(letter) == 1
-    while letter <= "z"
-        execute "imap " letter letter . "<C-n><C-p>"
-        let letter = nr2char(char2nr(letter)+1)
-    endwhile
-endif
+" let g:SuperTabMappingBackward = '<c-tab>'
+" let g:SuperTabMappingTabLiteral = '<s-tab>'
+" let g:SuperTabDefaultCompletionType = "<c-n>"
+"
+" set complete=.,w,b,u,t
+" set completeopt=menu,preview
+"
+" " Map all keys to Auto complete
+" let letter = "a"
+" if len(letter) == 1
+"     while letter <= "z"
+"         execute "imap " letter letter . "<C-n><C-p>"
+"         let letter = nr2char(char2nr(letter)+1)
+"     endwhile
+" endif
 
 " Toggle fold state between closed and opened.
 "
