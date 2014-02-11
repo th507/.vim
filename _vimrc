@@ -32,15 +32,15 @@ NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 
-"NeoBundle 'ervandew/supertab'
+NeoBundle 'ervandew/supertab'
 
 " maybe this?
-NeoBundle "Valloric/YouCompleteMe", {
-	\ "build" : {
-	\ 	"mac" : "./install.sh --clang-completer",
-	\	"linux" : "./install.sh --clang-completer",
-	\ },
-\ }
+" NeoBundle "Valloric/YouCompleteMe", {
+" 	\ "build" : {
+" 	\ 	"mac" : "./install.sh --clang-completer",
+" 	\	"linux" : "./install.sh --clang-completer",
+" 	\ },
+" \ }
 "NeoBundle 'Shougo/neocomplete.vim'
 
 "NeoBundle 'tpope/vim-surround'
@@ -90,7 +90,11 @@ map k <Down>
 noremap h i
 
 " moving between splits
-nnoremap <C-I> <C-W><C-K>
+map <C-I> <C-W><C-K>
+vnoremap <silent><C-I> <C-C><C-W><C-K>
+inoremap <silent><C-I> <C-O><C-W><C-K>
+
+"nnoremap <C-I> <C-W><C-K>
 nnoremap <C-K> <C-W><C-J>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-J> <C-W><C-H>
@@ -150,6 +154,13 @@ set autoread
 " Set to the current folder
 set autochdir
 
+" YCM
+" complete array keys in php 
+" https://github.com/Valloric/YouCompleteMe/issues/389
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+set completefunc=javascriptcomplete#CompleteJS
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 
 "To search for a word under the cursor from the current cursor position to the
 "end of the file, press the shift key and click on the word using the left
@@ -173,21 +184,21 @@ set wildmode=list:longest
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " supertab
-" let g:SuperTabMappingBackward = '<c-tab>'
-" let g:SuperTabMappingTabLiteral = '<s-tab>'
-" let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabMappingBackward = '<c-tab>'
+let g:SuperTabMappingTabLiteral = '<s-tab>'
+let g:SuperTabDefaultCompletionType = "<c-n>"
 "
-" set complete=.,w,b,u,t
-" set completeopt=menu,preview
-"
-" " Map all keys to Auto complete
-" let letter = "a"
-" if len(letter) == 1
-"     while letter <= "z"
-"         execute "imap " letter letter . "<C-n><C-p>"
-"         let letter = nr2char(char2nr(letter)+1)
-"     endwhile
-" endif
+set complete=.,w,b,u,t
+set completeopt=menu,preview
+
+" Map all keys to Auto complete
+let letter = "a"
+if len(letter) == 1
+    while letter <= "z"
+        execute "imap " letter letter . "<C-n><C-p>"
+        let letter = nr2char(char2nr(letter)+1)
+    endwhile
+endif
 
 " Toggle fold state between closed and opened.
 "
@@ -318,6 +329,18 @@ inoremap <silent><D-t> <C-O>:tabnew<CR>
 
 " Re-indent the code
 map <C-p><C-i> :normal ggVG=<CR>
+
+" http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
+function! GoToRootDir()
+  if isdirectory(".git")|| filereadable("Rakefile") || filereadable("Gruntfile.js")
+    pwd
+  else
+    silent! exec 'cd ../'
+    call GoToRootDir()
+  endif
+endfunction
+command! -nargs=0 Root call GoToRootDir()
+
 
 " END OF KEYMAP
 "
