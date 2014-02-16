@@ -50,54 +50,49 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'dag/vim-fish'
 
 " Github flavored Markdown
-NeoBundle "tpope/vim-markdown"
-NeoBundle "jtratner/vim-flavored-markdown"
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'jtratner/vim-flavored-markdown'
 
 " TaskPaper
-NeoBundle "davidoc/taskpaper.vim"
-NeoBundle "mattn/calendar-vim"
-
-
-" Use current directory as vimshell prompt.
-" let g:vimshell_prompt_expr =
-" \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-" let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-
-" JS Scope
-" NeoBundle 'bigfish/vim-js-context-coloring', {
-"   \ 'build' : {
-"   \     'mac' : 'npm install --update',
-"   \     'unix' : 'npm install --update',
-"   \    },
-"   \ }
-" let g:js_context_colors_enabled = 0
-" let g:js_context_colors_usemaps = 0
+NeoBundle 'davidoc/taskpaper.vim'
+NeoBundle 'mattn/calendar-vim'
 
 " why do you aks
 NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-NeoBundle "tyok/nerdtree-ack"
+NeoBundle 'tyok/nerdtree-ack'
 
 " git
-NeoBundle "tpope/vim-fugitive"
+NeoBundle 'tpope/vim-fugitive'
 
 " i j k l for up, left, down, and right
 " h for insert mode
-map i <Up>
-map j <Left>
-map k <Down>
-noremap h i
+" map i <Up>
+" map j <Left>
+" map k <Down>
+" noremap h i
+
+set winminheight=0
+
+"No keypressing -- focus-follows-mouse for gvim, in _gvimrc
+set mousefocus
 
 " moving between splits
-map <C-I> <C-W><C-K>
-vnoremap <silent><C-I> <C-C><C-W><C-K>
-inoremap <silent><C-I> <C-O><C-W><C-K>
+map <C-H> <C-W><C-H>
+map <C-J> <C-W><C-J>
+map <C-K> <C-W><C-K>
+map <C-L> <C-W><C-L>
 
-"nnoremap <C-I> <C-W><C-K>
-nnoremap <C-K> <C-W><C-J>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-J> <C-W><C-H>
+vnoremap <silent><C-H> <C-C><C-W><C-H>
+vnoremap <silent><C-J> <C-C><C-W><C-J>
+vnoremap <silent><C-K> <C-C><C-W><C-K>
+vnoremap <silent><C-L> <C-C><C-W><C-L>
+
+inoremap <silent><C-H> <C-O><C-W><C-H>
+inoremap <silent><C-J> <C-O><C-W><C-J>
+inoremap <silent><C-K> <C-O><C-W><C-K>
+inoremap <silent><C-L> <C-O><C-W><C-L>
 
 " resize vertically opened splits
 nnoremap <C-S><C-J> <C-W><
@@ -107,8 +102,7 @@ nnoremap <C-S><C-L> <C-W>>
 nnoremap <C-S><C-N> <C-W>t<C-W>H
 nnoremap <C-S><C-M> <C-W>t<C-W>K
 
-
-"nnoremap <C-S-J> :wincmd H
+"nnoremap <C-S-J> <C-W><C-H
 
 "remove left side scrollbar
 set guioptions-=L
@@ -154,14 +148,6 @@ set autoread
 " Set to the current folder
 set autochdir
 
-" YCM
-" complete array keys in php 
-" https://github.com/Valloric/YouCompleteMe/issues/389
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-set completefunc=javascriptcomplete#CompleteJS
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-
 "To search for a word under the cursor from the current cursor position to the
 "end of the file, press the shift key and click on the word using the left
 "mouse button.  To search in the opposite direction, press the shift key and
@@ -184,18 +170,18 @@ set wildmode=list:longest
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " supertab
-let g:SuperTabMappingBackward = '<c-tab>'
-let g:SuperTabMappingTabLiteral = '<s-tab>'
-let g:SuperTabDefaultCompletionType = "<c-n>"
-"
+" let g:SuperTabMappingBackward = '<c-tab>'
+" let g:SuperTabMappingTabLiteral = '<s-tab>'
+let g:SuperTabDefaultCompletionType = '<c-n>'
+
 set complete=.,w,b,u,t
 set completeopt=menu,preview
 
 " Map all keys to Auto complete
-let letter = "a"
+let letter = 'a'
 if len(letter) == 1
-    while letter <= "z"
-        execute "imap " letter letter . "<C-n><C-p>"
+    while letter <= 'z'
+        execute 'imap ' letter letter . '<c-n><c-p>'
         let letter = nr2char(char2nr(letter)+1)
     endwhile
 endif
@@ -224,9 +210,11 @@ noremap <Leader>] :call ToggleFold()<CR>
 
 
 " There are conflicts with the AutoComplPop script.
-" autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
-" autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
-
+" au FileType php setl ofu=phpcomplete#CompletePHP
+" au FileType ruby,eruby setl ofu=rubycomplete#Complete
+" au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+" au FileType c setl ofu=ccomplete#CompleteCpp
+" au FileType css setl ofu=csscomplete#CompleteCSS
 
 
 " allow backspace and cursor keys to cross line boundaries
@@ -248,8 +236,8 @@ let g:coffeeCheckHighlightErrorLine = 1
 " setting up xmledit for html file
 let g:xmledit_enable_html=1
 
-autocmd Filetype html let g:xml_syntax_folding = 1
-autocmd Filetype html set foldmethod=manual
+au Filetype html let g:xml_syntax_folding = 1
+au Filetype html set foldmethod=manual
 
 au BufRead,BufNewFile *.taskpapertheme  set ft=xml
 
@@ -318,9 +306,9 @@ inoremap <silent><C-Bslash> <C-O>:NERDTreeTabsToggle<CR>
 " bufferlist
 let g:BufferListWidth = 25
 let g:BufferListMaxWidth = 50
-"map <Leader><Leader> :BuffergatorToggle<CR>
-"vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
-"inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
+map <Leader><Leader> :BuffergatorToggle<CR>
+vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
+inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
 
 " tab new
 map <D-t> :tabnew<CR>
