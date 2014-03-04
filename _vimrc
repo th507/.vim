@@ -25,6 +25,7 @@ NeoBundle 'joestelmach/lint.vim'
 " fold functions
 NeoBundle 'rayburgemeestre/phpfolding.vim'
 
+" colorscheme
 NeoBundle 'tomasr/molokai'
 
 NeoBundle 'jeetsukumaran/vim-buffergator'
@@ -32,7 +33,13 @@ NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 
+" quickly open companion file such as .h
+NeoBundle 'vim-scripts/a.vim'
+
+" auto add closing quotes, parens, brackets, curlies, etc
+"NeoBundle 'ervandew/matchem'
 NeoBundle 'ervandew/supertab'
+
 
 " maybe this?
 " NeoBundle "Valloric/YouCompleteMe", {
@@ -60,6 +67,27 @@ NeoBundle 'mattn/calendar-vim'
 " why do you aks
 NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" quickly locate files
+NeoBundle 'ervandew/ag'
+NeoBundle 'kien/ctrlp.vim'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|ttf)$'
+  \ }
+" http://robots.thoughtbot.com/faster-grepping-in-vim
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 NeoBundle 'tyok/nerdtree-ack'
 
@@ -95,14 +123,13 @@ inoremap <silent><C-K> <C-O><C-W><C-K>
 inoremap <silent><C-L> <C-O><C-W><C-L>
 
 " resize vertically opened splits
-nnoremap <C-S><C-J> <C-W><
+nnoremap <C-S><C-H> <C-W><
 nnoremap <C-S><C-L> <C-W>>
 
 " change split layout vertical -> horizontal
 nnoremap <C-S><C-N> <C-W>t<C-W>H
 nnoremap <C-S><C-M> <C-W>t<C-W>K
 
-"nnoremap <C-S-J> <C-W><C-H
 
 "remove left side scrollbar
 set guioptions-=L
@@ -133,7 +160,8 @@ set showmode
 " Check the first five lines in a file for vim
 set modelines=5
 
-set nu
+set relativenumber
+set number
 " Always show current position
 set ruler
 
@@ -141,7 +169,6 @@ set ruler
 set showmatch
 " How many tenths of a second to blink matching brackets for
 set matchtime=1
-
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -166,13 +193,26 @@ set infercase
 " " wildignore: A file that matches with one of these patterns is ignored when
 " completing file or directory names.
 set wildmenu
-set wildmode=list:longest
+"set wildmode=list:longest
+set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
+" swapping G and <c-g>
+noremap G <C-G>
+noremap <C-G> G
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" use tab and shift-tab in visual mode
+" mimicking intellij idea
+vnoremap <silent><s-tab> <gv
+vnoremap <silent><tab> >gv
+
 " supertab
-" let g:SuperTabMappingBackward = '<c-tab>'
-" let g:SuperTabMappingTabLiteral = '<s-tab>'
-let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:SuperTabMappingBackward = '<C-tab>'
+let g:SuperTabMappingTabLiteral = '<S-tab>'
+let g:SuperTabDefaultCompletionType = '<C-N>'
 
 set complete=.,w,b,u,t
 set completeopt=menu,preview
@@ -181,7 +221,7 @@ set completeopt=menu,preview
 let letter = 'a'
 if len(letter) == 1
     while letter <= 'z'
-        execute 'imap ' letter letter . '<c-n><c-p>'
+        execute 'imap ' letter letter . '<C-N><C-P>'
         let letter = nr2char(char2nr(letter)+1)
     endwhile
 endif
@@ -210,11 +250,11 @@ noremap <Leader>] :call ToggleFold()<CR>
 
 
 " There are conflicts with the AutoComplPop script.
-" au FileType php setl ofu=phpcomplete#CompletePHP
-" au FileType ruby,eruby setl ofu=rubycomplete#Complete
-" au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
-" au FileType c setl ofu=ccomplete#CompleteCpp
-" au FileType css setl ofu=csscomplete#CompleteCSS
+au FileType php setl ofu=phpcomplete#CompletePHP
+au FileType ruby,eruby setl ofu=rubycomplete#Complete
+au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+au FileType c setl ofu=ccomplete#CompleteCpp
+au FileType css setl ofu=csscomplete#CompleteCSS
 
 
 " allow backspace and cursor keys to cross line boundaries
@@ -229,7 +269,7 @@ set background=dark
 colo molokai
 
 au BufRead,BufNewFile *.coffee set ft=coffee
-auto Filetype coffee set shiftwidth=4 softtabstop=4 expandtab
+au Filetype coffee set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 let g:coffeeCheckHighlightErrorLine = 1
 
@@ -263,35 +303,19 @@ set laststatus=2 " Always display the statusline in all windows
 "lets you use w!! to do that after you opened the file already:
 cmap w!! w !sudo tee % >/dev/null
 
-" In visual mode, git blame the selection
-" function! GitBlame() range
-" " look up function-range-example for more information
-"     let beg_line = line("'<")
-"     let end_line = line("'>")
-"     exec '!git blame -L '. beg_line. ','. end_line. ' %'
-" endfunction
-" vnoremap <leader>g :call GitBlame()<CR>
-"  
-" " In normal mode, git blame the current line
-" nnoremap <leader>g :exec '!git blame -L '. line("."). ','. line("."). ' %'<CR>
-
 " improved upon http://usevim.com/2013/11/29/pollution/
 if did_filetype()
   finish
 endif
 if getline(1) =~# '^#!.*/bin/env\s\+node\>'
-  setfiletype javascript
+    setfiletype javascript
 else
-    if getline(1) =~# '^#!.*/bin/env\s\+node\>'
+    if getline(1) =~# '^#!.*/bin/env\s\+coffee\>'
         setfiletype coffee
     endif
 endif
 
 " KEYMAP
-
-" shorthand for language specific files
-cnorea to tabe
-
 cnorea ej e ++enc=japan
 cnorea ep e ++enc=prc
 cnorea et e ++enc=taiwan
@@ -311,12 +335,12 @@ vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
 
 " tab new
-map <D-t> :tabnew<CR>
-vnoremap <silent><D-t> <C-C>:tabnew<CR>
-inoremap <silent><D-t> <C-O>:tabnew<CR>
+map <D-T> :tabnew<CR>
+vnoremap <silent><D-T> <C-C>:tabnew<CR>
+inoremap <silent><D-T> <C-O>:tabnew<CR>
 
 " Re-indent the code
-map <C-p><C-i> :normal ggVG=<CR>
+map <C-P><C-I> :normal ggVG=<CR>
 
 " http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
 function! GoToRootDir()
