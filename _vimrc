@@ -1,5 +1,9 @@
 set nocompatible
 set shortmess=aI
+" don't beep
+set visualbell
+set noerrorbells
+
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -17,6 +21,9 @@ NeoBundle 'kchmck/vim-coffee-script'
 " does not warn about ending line with spaces
 NeoBundle 'othree/coffee-check.vim'
 
+" auto-close chars like parenthesis"
+"NeoBundle 'Townk/vim-autoclose'
+
 " HATML, Sass and SCSS
 "NeoBundle 'gummesson/companion.vim'
 " JavaScript/CSS validator
@@ -26,7 +33,8 @@ NeoBundle 'joestelmach/lint.vim'
 NeoBundle 'rayburgemeestre/phpfolding.vim'
 
 " colorscheme
-NeoBundle 'tomasr/molokai'
+"NeoBundle 'tomasr/molokai'
+NeoBundle 'flazz/vim-colorschemes'
 
 NeoBundle 'jeetsukumaran/vim-buffergator'
 
@@ -39,6 +47,9 @@ NeoBundle 'vim-scripts/a.vim'
 " auto add closing quotes, parens, brackets, curlies, etc
 "NeoBundle 'ervandew/matchem'
 NeoBundle 'ervandew/supertab'
+
+NeoBundle 'ervandew/screen'
+
 
 
 " maybe this?
@@ -105,6 +116,7 @@ set winminheight=0
 
 "No keypressing -- focus-follows-mouse for gvim, in _gvimrc
 set mousefocus
+set mouse=a
 
 " moving between splits
 map <C-H> <C-W><C-H>
@@ -189,12 +201,16 @@ set ignorecase
 " adjusted with context.
 set infercase
 
+" visualize tabs and spaces
+" set list
+" set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
 " wildmenu: command-line completion operates in an enhanced mode
 " " wildignore: A file that matches with one of these patterns is ignored when
 " completing file or directory names.
 set wildmenu
-"set wildmode=list:longest
-set wildmode=longest:full,full
+set wildmode=list:longest
+"set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
 " swapping G and <c-g>
@@ -269,7 +285,10 @@ set background=dark
 colo molokai
 
 au BufRead,BufNewFile *.coffee set ft=coffee
-au Filetype coffee set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+au Filetype coffee set tabstop=2
+au Filetype coffee set shiftwidth=2
+au Filetype coffee set softtabstop=2
+au Filetype coffee set expandtab
 
 let g:coffeeCheckHighlightErrorLine = 1
 
@@ -280,6 +299,19 @@ au Filetype html let g:xml_syntax_folding = 1
 au Filetype html set foldmethod=manual
 
 au BufRead,BufNewFile *.taskpapertheme  set ft=xml
+
+" compile sass
+" http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
+function! GoToSASSConfigDir()
+    if filereadable("config.rb") || isdirectory("usr")
+        silent! exec "!compass compile %"
+    else
+        silent! exec 'cd ../'
+        call GoToSASSConfigDir()
+    endif 
+endfunction
+
+au BufWritePost *.scss :call GoToSASSConfigDir()
 
 " NERDTree related
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -320,6 +352,8 @@ cnorea ej e ++enc=japan
 cnorea ep e ++enc=prc
 cnorea et e ++enc=taiwan
 
+" rebase fix
+cnorea rebase 2,$s/pick/f/
 
 " NERDTree related
 let NERDTreeShowBookmarks=1
@@ -344,7 +378,7 @@ map <C-P><C-I> :normal ggVG=<CR>
 
 " http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
 function! GoToRootDir()
-  if isdirectory(".git")|| filereadable("Rakefile") || filereadable("Gruntfile.js")
+  if isdirectory(".git")|| filereadable("Rakefile") || filereadable("Gruntfile.js") || isdirectory("usr")
     pwd
   else
     silent! exec 'cd ../'
