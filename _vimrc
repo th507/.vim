@@ -29,6 +29,9 @@ NeoBundle 'othree/coffee-check.vim'
 " JavaScript/CSS validator
 NeoBundle 'joestelmach/lint.vim'
 
+" color in CSS
+NeoBundle 'ap/vim-css-color'
+
 " fold functions
 NeoBundle 'rayburgemeestre/phpfolding.vim'
 
