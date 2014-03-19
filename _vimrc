@@ -175,7 +175,7 @@ set showmode
 " Check the first five lines in a file for vim
 set modelines=5
 
-set relativenumber
+"set relativenumber
 set number
 " Always show current position
 set ruler
