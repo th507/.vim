@@ -216,6 +216,7 @@ set wildmode=list:longest
 "set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
+noremap /// :CtrlP<CR>
 " swapping G and <c-g>
 noremap G <C-G>
 noremap <C-G> G
