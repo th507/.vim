@@ -85,6 +85,11 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " quickly locate files
 NeoBundle 'ervandew/ag'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tacahiroy/ctrlp-funky'
+let g:ctrlp_extensions = ['funky']
+nnoremap <Leader>fU :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -188,7 +193,7 @@ set matchtime=1
 " Set to auto read when a file is changed from the outside
 set autoread
 " Set to the current folder
-set autochdir
+" set autochdir
 
 "To search for a word under the cursor from the current cursor position to the
 "end of the file, press the shift key and click on the word using the left
@@ -246,6 +251,7 @@ if len(letter) == 1
     endwhile
 endif
 
+
 " Toggle fold state between closed and opened.
 "
 " If there is no fold at current line, just moves forward.
@@ -296,6 +302,10 @@ au Filetype coffee set expandtab
 
 let g:coffeeCheckHighlightErrorLine = 1
 
+au Filetype javascript set foldmethod=indent
+au Filetype javascript set foldlevel=1
+" au Filetype javascript set foldclose=all
+
 " setting up xmledit for html file
 let g:xmledit_enable_html=1
 
@@ -315,7 +325,7 @@ function! GoToSASSConfigDir()
     endif 
 endfunction
 
-au BufWritePost *.scss :call GoToSASSConfigDir()
+" au BufWritePost *.scss :call GoToSASSConfigDir()
 
 " NERDTree related
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -380,6 +390,7 @@ inoremap <silent><D-T> <C-O>:tabnew<CR>
 " Re-indent the code
 map <C-P><C-I> :normal ggVG=<CR>
 
+map <leader>z $zf%
 " http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
 function! GoToRootDir()
   if isdirectory(".git")|| filereadable("Rakefile") || filereadable("Gruntfile.js") || isdirectory("usr")
