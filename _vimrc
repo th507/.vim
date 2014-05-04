@@ -221,7 +221,7 @@ set wildmode=list:longest
 "set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
-noremap /// :CtrlP<CR>
+noremap ??? :CtrlP<CR>
 " swapping G and <c-g>
 noremap G <C-G>
 noremap <C-G> G
@@ -334,14 +334,14 @@ let g:NERDTreeWinPos = "right"
 
 " Fix terminal timeout when pressing escape
 " https://powerline.readthedocs.org/en/latest/tipstricks.html#vim
-if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
+" if ! has('gui_running')
+"     set ttimeoutlen=10
+"     augroup FastEscape
+"         autocmd!
+"         au InsertEnter * set timeoutlen=0
+"         au InsertLeave * set timeoutlen=1000
+"     augroup END
+" endif
 
 set laststatus=2 " Always display the statusline in all windows
 
