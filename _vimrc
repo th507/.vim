@@ -8,7 +8,15 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+if has("gui_running")
+    set lines=50 columns=90
+endif
+
 call neobundle#rc(expand('~/.vim/bundle/'))
+
+NeoBundle 'rizzatti/dash.vim'
+map <Leader>d :Dash<CR>
+
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -22,7 +30,6 @@ NeoBundle 't9md/vim-choosewin'
 let g:choosewin_overlay_enable = 1
 " invoke with '-'
 nmap  -  <Plug>(choosewin)
-
 " swap buffer with '='
 nmap = <Plug>(choosewin-swap)
 
@@ -110,6 +117,9 @@ NeoBundle 'mattn/calendar-vim'
 " why do you aks
 NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Swift language
+NeoBundle 'Keithbsmiley/swift.vim'
 
 " quickly locate files
 NeoBundle 'ervandew/ag'
@@ -203,6 +213,7 @@ set softtabstop=4
 set smarttab
 set expandtab
 set autoindent
+set copyindent
 
 " display the current mode in the status line:
 set showmode
@@ -316,7 +327,8 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 
-set guifont=Menlo:h14
+"set guifont=Menlo:h14
+set guifont=Source\ Code\ Pro:h14
 set encoding=utf-8
 
 set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
@@ -443,8 +455,8 @@ command! -nargs=0 Root call GoToRootDir()
 
 " END OF KEYMAP
 "
-iab xname <C-R>=Jingwei "John" Liu<CR>
-iab xemail <C-R>=liujingwei@gmail.com<CR>
+iab xname Jingwei "John" Liu
+iab xemail liujingwei@gmail.com
 iab xtime <C-R>=strftime("%m/%d/%y %H:%M:%S")<CR>
 iab xfulltime <C-R>=strftime("%a %d %b %Y %I:%M:%S %p")<CR>
 iab xdate <C-R>=strftime("%b %d, %Y")<CR>
