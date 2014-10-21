@@ -12,7 +12,8 @@ if has("gui_running")
     set lines=50 columns=90
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#end()
 
 NeoBundle 'rizzatti/dash.vim'
 map <Leader>d :Dash<CR>
