@@ -4,6 +4,9 @@ set shortmess=aI
 set visualbell
 set noerrorbells
 
+" more redraws
+set ttyfast
+
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -24,6 +27,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " HTML related
 NeoBundle 'sukima/xmledit'
 NeoBundle 'mattn/emmet-vim'
+
+NeoBundle 'moll/vim-node'
 
 " Expose
 NeoBundle 't9md/vim-choosewin'
@@ -47,6 +52,7 @@ NeoBundle 'othree/coffee-check.vim'
 "NeoBundle 'gummesson/companion.vim'
 " JavaScript/CSS validator
 " NeoBundle 'joestelmach/lint.vim'
+
 NeoBundle 'Shutnik/jshint2.vim'
 let jshint2_save = 1
 let jshint2_height = 10
@@ -74,6 +80,13 @@ NeoBundle 'vim-scripts/a.vim'
 NeoBundle 'ervandew/supertab'
 
 NeoBundle 'ervandew/screen'
+
+NeoBundle 'junegunn/fzf', {
+                \ 'build': {
+                    \ 'mac': './install',
+                    \ 'unix': './install',
+                \ },
+            \ }
 
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
@@ -112,8 +125,8 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown'
 
 " TaskPaper
-NeoBundle 'davidoc/taskpaper.vim'
-NeoBundle 'mattn/calendar-vim'
+" NeoBundle 'davidoc/taskpaper.vim'
+" NeoBundle 'mattn/calendar-vim'
 
 " why do you aks
 NeoBundle 'mileszs/ack.vim'
@@ -219,6 +232,14 @@ set copyindent
 " display the current mode in the status line:
 set showmode
 
+" wrap long lines
+set display=lastline
+
+" Quicker timeouts for tmux + vim + iTerm
+set ttimeout
+set timeoutlen=50
+set notimeout
+
 " Check the first five lines in a file for vim
 set modelines=5
 
@@ -262,6 +283,10 @@ set wildmenu
 set wildmode=list:longest
 "set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
+
+if has("clipboard")     " If the feature is available
+  set clipboard=unnamed " copy to the system clipboard
+endif
 
 noremap ??? :CtrlP<CR>
 " swapping G and <c-g>
@@ -328,8 +353,8 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 
-"set guifont=Menlo:h14
-set guifont=Source\ Code\ Pro:h14
+set guifont=Menlo:h14
+"set guifont=Source\ Code\ Pro:h14
 set encoding=utf-8
 
 set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
