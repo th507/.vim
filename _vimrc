@@ -218,7 +218,9 @@ filetype plugin indent on
 
 set noswapfile
 set nobackup
-set noundofile
+if has('persistent_undo')
+    set noundofile
+endif
 
 set tabstop=4
 set shiftwidth=4
@@ -368,6 +370,7 @@ au Filetype coffee set shiftwidth=2
 au Filetype coffee set softtabstop=2
 au Filetype coffee set expandtab
 
+au BufRead,BufNewFile *.hbs set ft=html
 let g:coffeeCheckHighlightErrorLine = 1
 
 au Filetype javascript set foldmethod=indent
