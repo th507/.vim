@@ -292,8 +292,8 @@ endif
 
 noremap ??? :CtrlP<CR>
 " swapping G and <c-g>
-noremap G <C-G>
-noremap <C-G> G
+" noremap G <C-G>
+" noremap <C-G> G
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
