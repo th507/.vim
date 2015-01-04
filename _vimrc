@@ -64,7 +64,6 @@ NeoBundle 'ap/vim-css-color'
 NeoBundle 'rayburgemeestre/phpfolding.vim'
 
 " colorscheme
-"NeoBundle 'tomasr/molokai'
 NeoBundle 'flazz/vim-colorschemes'
 
 NeoBundle 'jeetsukumaran/vim-buffergator'
@@ -362,7 +361,10 @@ set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
 
 set background=dark
-colo molokai
+try
+    colo molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+endtry
 
 au BufRead,BufNewFile *.coffee set ft=coffee
 au Filetype coffee set tabstop=2
