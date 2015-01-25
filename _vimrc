@@ -285,9 +285,9 @@ set wildmode=list:longest
 "set wildmode=longest:full,full
 set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
 
-if has("clipboard")     " If the feature is available
-  set clipboard=unnamed " copy to the system clipboard
-endif
+" if has("clipboard")     " If the feature is available
+"   set clipboard=unnamed " copy to the system clipboard
+" endif
 
 noremap ??? :CtrlP<CR>
 " swapping G and <c-g>
