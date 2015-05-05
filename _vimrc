@@ -123,6 +123,8 @@ NeoBundle 'dag/vim-fish'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'jtratner/vim-flavored-markdown'
 
+NeoBundle 'leafgarland/typescript-vim'
+
 " TaskPaper
 " NeoBundle 'davidoc/taskpaper.vim'
 " NeoBundle 'mattn/calendar-vim'
@@ -211,7 +213,6 @@ set backspace=indent,eol,start
 set splitbelow
 set splitright
 
-
 syntax on
 filetype plugin indent on
 
@@ -221,9 +222,9 @@ if has('persistent_undo')
     set noundofile
 endif
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 " tab
 set smarttab
 set expandtab
@@ -283,7 +284,7 @@ set infercase
 set wildmenu
 set wildmode=list:longest
 "set wildmode=longest:full,full
-set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~
+set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~,node_modules/*
 
 " if has("clipboard")     " If the feature is available
 "   set clipboard=unnamed " copy to the system clipboard
@@ -354,7 +355,7 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 
-set guifont=Menlo:h14
+set guifont=Menlo:h16
 "set guifont=Source\ Code\ Pro:h14
 set encoding=utf-8
 
@@ -482,6 +483,20 @@ function! GoToRootDir()
   endif
 endfunction
 command! -nargs=0 Root call GoToRootDir()
+
+let g:Transparency = 0
+function! ToggleTransparency()
+    echo g:Transparency
+    if g:Transparency > 50
+        set transparency=0
+        let g:Transparency = 0
+    else
+        set transparency=60
+        let g:Transparency = 60
+    endif
+endfunction
+
+map <D-0> :call ToggleTransparency()<CR>
 
 
 " END OF KEYMAP
