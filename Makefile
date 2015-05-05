@@ -8,7 +8,7 @@ VIM:= @vim
 DIR_VIMFILES=${PWD}
 DIR_BUNDLE=bundle
 DIR_NEO=bundle/neobundle.vim
-REPO_NEO=git://github.com/Shougo/neobundle.vim
+REPO_NEO=https://github.com/Shougo/neobundle.vim.git
 NEO_REMOTE_URL=$(shell mkdir -p $(DIR_NEO); cd $(DIR_NEO); git config --get remote.origin.url)
 
 VIMRC=${HOME}/.vimrc
