@@ -456,6 +456,9 @@ map <F1> :tabprevious<CR>
 vnoremap <silent><F1> <C-C>:tabprevious<CR>
 inoremap <silent><F1> <C-O>:tabprevious<CR>
 
+map <F2> :tabnext<CR>
+vnoremap <silent><F2> <C-C>:tabnext<CR>
+inoremap <silent><F2> <C-O>:tabnext<CR>
 
 " bufferlist
 let g:BufferListWidth = 25
@@ -463,6 +466,11 @@ let g:BufferListMaxWidth = 50
 map <Leader><Leader> :BuffergatorToggle<CR>
 vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
+
+map <D-E> :!node --harmony %<CR>
+vnoremap <silent><D-E> <C-C>:!node --harmony %<CR>
+inoremap <silent><D-E> <C-O>:!node --harmony %<CR>
+
 
 " tab new
 map <D-T> :tabnew<CR>
