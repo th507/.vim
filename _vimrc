@@ -16,11 +16,9 @@ if has("gui_running")
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
-call neobundle#end()
 
 NeoBundle 'rizzatti/dash.vim'
 map <Leader>d :Dash<CR>
-
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -166,6 +164,30 @@ NeoBundle 'tyok/nerdtree-ack'
 
 " git
 NeoBundle 'tpope/vim-fugitive'
+
+call neobundle#end()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 " i j k l for up, left, down, and right
 " h for insert mode
@@ -516,3 +538,12 @@ iab xfulltime <C-R>=strftime("%a %d %b %Y %I:%M:%S %p")<CR>
 iab xdate <C-R>=strftime("%b %d, %Y")<CR>
 iab xdatestamp <C-R>=strftime("%m,%d,%Y")<CR>
 iab xfile <C-R>=expand("%:t:r")<CR>
+
+
+
+
+
+" start NeoBundleCheck in the absence of .vim/bundle
+if !isdirectory("~/.vim/bundle")
+  NeoBundleCheck
+endif
