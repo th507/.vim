@@ -15,6 +15,10 @@ if has("gui_running")
     set lines=50 columns=90
 endif
 
+if !has('nvim')
+    set ttymouse=xterm2
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundle 'rizzatti/dash.vim'
@@ -52,7 +56,7 @@ NeoBundle 'othree/coffee-check.vim'
 " NeoBundle 'joestelmach/lint.vim'
 
 NeoBundle 'Shutnik/jshint2.vim'
-let jshint2_save = 1
+"let jshint2_save = 1
 let jshint2_height = 10
 
 " color in CSS
@@ -165,8 +169,20 @@ NeoBundle 'tyok/nerdtree-ack'
 " git
 NeoBundle 'tpope/vim-fugitive'
 
-call neobundle#end()
+NeoBundle 'aklt/plantuml-syntax'
 
+NeoBundle 'pangloss/vim-javascript'
+" let g:javascript_conceal_return               = "⇚"
+" let g:javascript_conceal_arrow_function       = "⇒"
+" let g:javascript_conceal_this                 = "@"
+" set conceallevel=1
+
+NeoBundle 'rust-lang/rust.vim'
+
+" another theme
+NeoBundle 'jdkanani/vim-material-theme'
+
+call neobundle#end()
 
 
 
@@ -377,13 +393,16 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 
-set guifont=Menlo:h16
-"set guifont=Source\ Code\ Pro:h14
+" set guifont=Mononoki:h16
+" set guifont=Hack:h16
+" set guifont=Noto\ Sans\ Mono\ CJK\ SC:h14
+" set guifont=Source\ Code\ Pro:h14
+set guifont=SF\ Mono\ Light:h14
 set encoding=utf-8
 
 set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
 
-set background=dark
+" set background=dark
 try
     colo molokai
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -489,9 +508,9 @@ map <Leader><Leader> :BuffergatorToggle<CR>
 vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
 
-map <D-E> :!node --harmony %<CR>
-vnoremap <silent><D-E> <C-C>:!node --harmony %<CR>
-inoremap <silent><D-E> <C-O>:!node --harmony %<CR>
+map <D-P> :!node --harmony %<CR>
+vnoremap <silent><D-P> <C-C>:!node --harmony %<CR>
+inoremap <silent><D-P> <C-O>:!node --harmony %<CR>
 
 
 " tab new
