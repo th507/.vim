@@ -8,6 +8,7 @@ VIM:= @vim
 DIR_VIMFILES=${PWD}
 DIR_BUNDLE=bundle
 DIR_NEO=bundle/neobundle.vim
+DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
 REPO_NEO=https://github.com/Shougo/neobundle.vim.git
 NEO_REMOTE_URL=$(shell mkdir -p $(DIR_NEO); cd $(DIR_NEO); git config --get remote.origin.url)
 
@@ -18,7 +19,7 @@ all: install
 clean:
 	$(RM) -rf $(DIR_BUNDLE)
 
-check:
+check: link-neovim
 	$(MD) -p $(DIR_NEO)
 
 update: check
@@ -45,3 +46,10 @@ install: update
 	$(VIM) +NeoBundleClean +NeoBundleCheck
 	@echo
 	@echo "Vim setup finished"
+
+
+check-neovim:
+	$(MD) -p $(DIR_CONFIG_FOR_NEOVIM)
+
+link-neovim: check-neovim
+	$(LN) -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
