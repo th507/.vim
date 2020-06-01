@@ -1,8 +1,12 @@
 set nocompatible
 set shortmess=aI
+set cmdheight=2
+
 " don't beep
 set visualbell
 set noerrorbells
+
+set background=dark
 
 " more redraws
 set ttyfast
@@ -43,9 +47,9 @@ nmap = <Plug>(choosewin-swap)
 
 
 " Coffee-script
-NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'kchmck/vim-coffee-script'
 " does not warn about ending line with spaces
-NeoBundle 'othree/coffee-check.vim'
+" NeoBundle 'othree/coffee-check.vim'
 
 " auto-close chars like parenthesis"
 "NeoBundle 'Townk/vim-autoclose'
@@ -93,8 +97,9 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
       \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
+      \     'mac' : 'make',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
       \    },
       \ }
 NeoBundle 'Shougo/vimshell.vim'
@@ -397,7 +402,9 @@ set whichwrap+=<,>,h,l
 " set guifont=Hack:h16
 " set guifont=Noto\ Sans\ Mono\ CJK\ SC:h14
 " set guifont=Source\ Code\ Pro:h14
-set guifont=SF\ Mono\ Light:h14
+set guifont=SF\ Mono\ Light:h16
+"set guifont=Menlo:h18
+
 set encoding=utf-8
 
 set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
@@ -408,14 +415,14 @@ try
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
-au BufRead,BufNewFile *.coffee set ft=coffee
-au Filetype coffee set tabstop=2
-au Filetype coffee set shiftwidth=2
-au Filetype coffee set softtabstop=2
-au Filetype coffee set expandtab
+" au BufRead,BufNewFile *.coffee set ft=coffee
+" au Filetype coffee set tabstop=2
+" au Filetype coffee set shiftwidth=2
+" au Filetype coffee set softtabstop=2
+" au Filetype coffee set expandtab
 
 au BufRead,BufNewFile *.hbs set ft=html
-let g:coffeeCheckHighlightErrorLine = 1
+" let g:coffeeCheckHighlightErrorLine = 1
 
 au Filetype javascript set foldmethod=indent
 au Filetype javascript set foldlevel=1
@@ -429,6 +436,7 @@ au Filetype html set foldmethod=manual
 
 au BufRead,BufNewFile *.taskpapertheme set ft=xml
 
+au BufRead,BufNewFile *.ft set ft=markdown
 " set no fileline for taskpaper
 au BufRead, BufNewFile *.taskpaper set nonu
 
@@ -507,6 +515,10 @@ let g:BufferListMaxWidth = 50
 map <Leader><Leader> :BuffergatorToggle<CR>
 vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
+
+map <D-P> :sav<CR>
+vnoremap <silent><D-P> <C-C>:sav<CR>
+inoremap <silent><D-P> <C-O>:sav<CR>
 
 map <D-P> :!node --harmony %<CR>
 vnoremap <silent><D-P> <C-C>:!node --harmony %<CR>
