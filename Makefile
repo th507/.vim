@@ -6,14 +6,16 @@ LN := @ln
 VIM:= @vim
 
 DIR_VIMFILES=${PWD}
-DIR_BUNDLE=bundle
-DIR_NEO=bundle/neobundle.vim
+DIR_BUNDLE=bundles
 DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
-REPO_NEO=https://github.com/Shougo/neobundle.vim.git
-NEO_REMOTE_URL=$(shell mkdir -p $(DIR_NEO); cd $(DIR_NEO); git config --get remote.origin.url)
+
+DEIN_INSTALLER=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+DEIN_DIR=${PWD}/bundles
+DEIN_PREINSTALL=$(shell mkdir -p $(DEIN_DIR); cd $(DIR_VIMFILES))
 
 VIMRC=${HOME}/.vimrc
 GVIMRC=${HOME}/.gvimrc
+
 all: install
 
 clean:
@@ -22,28 +24,18 @@ clean:
 check: link-neovim
 	$(MD) -p $(DIR_NEO)
 
-update: check
-ifeq ($(NEO_REMOTE_URL),$(REPO_NEO))
-	@echo "Updating NeoBundle"
-	@echo $(DIR_VIMFILES)	
-	$(CD) $(DIR_NEO) ; git fetch origin -q; git rebase origin -q
-	$(CD) $(DIR_VIMFILES)
-else
-	@echo "Checking out latest NeoBundle"	
-	$(CD) $(DIR_VIMFILES) ; git clone $(REPO_NEO) $(DIR_NEO);
-endif
-
 backup:
 	$(RM) -f "$(VIMRC).bk" "$(GVIMRC).bk"
 	$(CP) -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
 	$(CP) -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
 
-install: update
+install: 
 	@echo "Running setup script"
+	curl -sSL "$(DEIN_INSTALLER)" | bash /dev/stdin $(DEIN_DIR)
 	@echo "Linking .vimrc"
 	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
 	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
-	$(VIM) +NeoBundleClean +NeoBundleCheck
+	$(VIM) +"call dein#install()"
 	@echo
 	@echo "Vim setup finished"
 

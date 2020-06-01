@@ -1,4 +1,3 @@
-set nocompatible
 set shortmess=aI
 set cmdheight=2
 
@@ -11,10 +10,6 @@ set background=dark
 " more redraws
 set ttyfast
 
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
 if has("gui_running")
     set lines=50 columns=90
 endif
@@ -23,21 +18,66 @@ if !has('nvim')
     set ttymouse=xterm2
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+if &compatible
+  set nocompatible
+endif
 
-NeoBundle 'rizzatti/dash.vim'
+" Add the dein installation directory into runtimepath
+"if has('vim_starting')
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+"endif
+
+if dein#load_state('~/.vim/bundles')
+  call dein#begin('~/.vim/bundles')
+
+  call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('rizzatti/dash.vim')
+    call dein#add('sukima/xmledit')
+    call dein#add('mattn/emmet-vim')
+    call dein#add('moll/vim-node')
+    call dein#add('t9md/vim-choosewin')
+    call dein#add('Shutnik/jshint2.vim')
+    call dein#add('ap/vim-css-color')
+    call dein#add('rayburgemeestre/phpfolding.vim')
+    call dein#add('flazz/vim-colorschemes')
+    call dein#add('jeetsukumaran/vim-buffergator')
+    call dein#add('mileszs/ack.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('jistr/vim-nerdtree-tabs')
+    "call dein#add('tyok/nerdtree-ack')
+    call dein#add('vim-scripts/a.vim')
+    call dein#add('ervandew/supertab')
+    call dein#add('ervandew/screen')
+    call dein#add('mustache/vim-mustache-handlebars')
+    call dein#add('tomtom/tcomment_vim')
+    call dein#add('dag/vim-fish')
+    call dein#add('tpope/vim-markdown')
+    call dein#add('jtratner/vim-flavored-markdown')
+    call dein#add('leafgarland/typescript-vim')
+    call dein#add('Keithbsmiley/swift.vim')
+    call dein#add('ervandew/ag')
+    call dein#add('kien/ctrlp.vim')
+    call dein#add('tacahiroy/ctrlp-funky')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('aklt/plantuml-syntax')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('rust-lang/rust.vim')
+    call dein#add('jdkanani/vim-material-theme')
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+
 map <Leader>d :Dash<CR>
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
 " HTML related
-NeoBundle 'sukima/xmledit'
-NeoBundle 'mattn/emmet-vim'
 
-NeoBundle 'moll/vim-node'
 
 " Expose
-NeoBundle 't9md/vim-choosewin'
 " if you want to use overlay feature
 let g:choosewin_overlay_enable = 1
 " invoke with '-'
@@ -46,10 +86,6 @@ nmap  -  <Plug>(choosewin)
 nmap = <Plug>(choosewin-swap)
 
 
-" Coffee-script
-" NeoBundle 'kchmck/vim-coffee-script'
-" does not warn about ending line with spaces
-" NeoBundle 'othree/coffee-check.vim'
 
 " auto-close chars like parenthesis"
 "NeoBundle 'Townk/vim-autoclose'
@@ -59,94 +95,55 @@ nmap = <Plug>(choosewin-swap)
 " JavaScript/CSS validator
 " NeoBundle 'joestelmach/lint.vim'
 
-NeoBundle 'Shutnik/jshint2.vim'
 "let jshint2_save = 1
 let jshint2_height = 10
 
 " color in CSS
-NeoBundle 'ap/vim-css-color'
 
 " fold functions
-NeoBundle 'rayburgemeestre/phpfolding.vim'
 
 " colorscheme
-NeoBundle 'flazz/vim-colorschemes'
-
-NeoBundle 'jeetsukumaran/vim-buffergator'
-
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
 
 " quickly open companion file such as .h
-NeoBundle 'vim-scripts/a.vim'
 
 " auto add closing quotes, parens, brackets, curlies, etc
 "NeoBundle 'ervandew/matchem'
-NeoBundle 'ervandew/supertab'
 
-NeoBundle 'ervandew/screen'
 
-NeoBundle 'junegunn/fzf', {
-                \ 'build': {
-                    \ 'mac': './install',
-                    \ 'unix': './install',
-                \ },
-            \ }
+" NeoBundle 'junegunn/fzf', {
+"                 \ 'build': {
+"                     \ 'mac': './install',
+"                     \ 'unix': './install',
+"                 \ },
+"             \ }
+"
+" NeoBundle 'Shougo/vimproc.vim', {
+"       \ 'build' : {
+"       \     'windows' : 'tools\\update-dll-mingw',
+"       \     'cygwin' : 'make -f make_cygwin.mak',
+"       \     'mac' : 'make',
+"       \     'linux' : 'make',
+"       \     'unix' : 'gmake',
+"       \    },
+"       \ }
+" NeoBundle 'Shougo/vimshell.vim'
+" let g:vimshell_prompt = '$'
+" " Use current directory as vimshell prompt.
+" let g:vimshell_prompt_expr =
+" \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+" let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \    },
-      \ }
-NeoBundle 'Shougo/vimshell.vim'
-let g:vimshell_prompt = '$'
-" Use current directory as vimshell prompt.
-let g:vimshell_prompt_expr =
-\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-
-NeoBundle 'mustache/vim-mustache-handlebars'
-
-" maybe this?
-" NeoBundle "Valloric/YouCompleteMe", {
-" 	\ "build" : {
-" 	\ 	"mac" : "./install.sh --clang-completer",
-" 	\	"linux" : "./install.sh --clang-completer",
-" 	\ },
-" \ }
-"NeoBundle 'Shougo/neocomplete.vim'
-
-"NeoBundle 'tpope/vim-surround'
-NeoBundle 'tomtom/tcomment_vim'
-
-" Fish-shell syntax highlighting
-NeoBundle 'dag/vim-fish'
-
-" Github flavored Markdown
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'jtratner/vim-flavored-markdown'
-
-NeoBundle 'leafgarland/typescript-vim'
 
 " TaskPaper
 " NeoBundle 'davidoc/taskpaper.vim'
 " NeoBundle 'mattn/calendar-vim'
 
 " why do you aks
-NeoBundle 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Swift language
-NeoBundle 'Keithbsmiley/swift.vim'
 
 " quickly locate files
-NeoBundle 'ervandew/ag'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tacahiroy/ctrlp-funky'
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>fU :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
@@ -168,45 +165,10 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-
-NeoBundle 'tyok/nerdtree-ack'
-
-" git
-NeoBundle 'tpope/vim-fugitive'
-
-NeoBundle 'aklt/plantuml-syntax'
-
-NeoBundle 'pangloss/vim-javascript'
 " let g:javascript_conceal_return               = "⇚"
 " let g:javascript_conceal_arrow_function       = "⇒"
 " let g:javascript_conceal_this                 = "@"
 " set conceallevel=1
-
-NeoBundle 'rust-lang/rust.vim'
-
-" another theme
-NeoBundle 'jdkanani/vim-material-theme'
-
-call neobundle#end()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -572,9 +534,11 @@ iab xfile <C-R>=expand("%:t:r")<CR>
 
 
 
-
+if dein#check_install()
+  call dein#install()
+endif
 
 " start NeoBundleCheck in the absence of .vim/bundle
-if !isdirectory("~/.vim/bundle")
-  NeoBundleCheck
-endif
+" if !isdirectory("~/.vim/bundle")
+"   NeoBundleCheck
+" endif
