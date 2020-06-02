@@ -23,49 +23,52 @@ if &compatible
 endif
 
 " Add the dein installation directory into runtimepath
-"if has('vim_starting')
-set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
-"endif
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+endif
 
 if dein#load_state('~/.vim/bundles')
   call dein#begin('~/.vim/bundles')
 
   call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('rizzatti/dash.vim')
-    call dein#add('sukima/xmledit')
-    call dein#add('mattn/emmet-vim')
-    call dein#add('moll/vim-node')
-    call dein#add('t9md/vim-choosewin')
-    call dein#add('Shutnik/jshint2.vim')
-    call dein#add('ap/vim-css-color')
-    call dein#add('rayburgemeestre/phpfolding.vim')
-    call dein#add('flazz/vim-colorschemes')
-    call dein#add('jeetsukumaran/vim-buffergator')
-    call dein#add('mileszs/ack.vim')
-    call dein#add('scrooloose/nerdtree')
-    call dein#add('jistr/vim-nerdtree-tabs')
-    "call dein#add('tyok/nerdtree-ack')
-    call dein#add('vim-scripts/a.vim')
-    call dein#add('ervandew/supertab')
-    call dein#add('ervandew/screen')
-    call dein#add('mustache/vim-mustache-handlebars')
-    call dein#add('tomtom/tcomment_vim')
-    call dein#add('dag/vim-fish')
-    call dein#add('tpope/vim-markdown')
-    call dein#add('jtratner/vim-flavored-markdown')
-    call dein#add('leafgarland/typescript-vim')
-    call dein#add('Keithbsmiley/swift.vim')
-    call dein#add('ervandew/ag')
-    call dein#add('kien/ctrlp.vim')
-    call dein#add('tacahiroy/ctrlp-funky')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('aklt/plantuml-syntax')
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('rust-lang/rust.vim')
-    call dein#add('jdkanani/vim-material-theme')
-  endif
+
+  call dein#add('rizzatti/dash.vim')
+  call dein#add('sukima/xmledit')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('moll/vim-node')
+  call dein#add('t9md/vim-choosewin')
+  call dein#add('Shutnik/jshint2.vim')
+  call dein#add('ap/vim-css-color')
+  call dein#add('rayburgemeestre/phpfolding.vim')
+  call dein#add('flazz/vim-colorschemes')
+  call dein#add('jeetsukumaran/vim-buffergator')
+  call dein#add('mileszs/ack.vim')
+  call dein#add('ervandew/ag')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('jistr/vim-nerdtree-tabs')
+  " call dein#add('tyok/nerdtree-ack')
+  call dein#add('vim-scripts/a.vim')
+  call dein#add('ervandew/supertab')
+  call dein#add('ervandew/screen')
+  call dein#add('mustache/vim-mustache-handlebars')
+  call dein#add('tomtom/tcomment_vim')
+  call dein#add('dag/vim-fish')
+  call dein#add('tpope/vim-markdown')
+  call dein#add('jtratner/vim-flavored-markdown')
+  call dein#add('leafgarland/typescript-vim')
+  call dein#add('Keithbsmiley/swift.vim')
+  call dein#add('kien/ctrlp.vim')
+  call dein#add('tacahiroy/ctrlp-funky')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('aklt/plantuml-syntax')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('rust-lang/rust.vim')
+  call dein#add('jdkanani/vim-material-theme')
+  call dein#add('MaxMEllon/vim-jsx-pretty')
+
+  "if !has('nvim')
+  "endif
 
   call dein#end()
   call dein#save_state()
@@ -86,7 +89,6 @@ nmap  -  <Plug>(choosewin)
 nmap = <Plug>(choosewin-swap)
 
 
-
 " auto-close chars like parenthesis"
 "NeoBundle 'Townk/vim-autoclose'
 
@@ -98,13 +100,6 @@ nmap = <Plug>(choosewin-swap)
 "let jshint2_save = 1
 let jshint2_height = 10
 
-" color in CSS
-
-" fold functions
-
-" colorscheme
-
-" quickly open companion file such as .h
 
 " auto add closing quotes, parens, brackets, curlies, etc
 "NeoBundle 'ervandew/matchem'
@@ -319,10 +314,10 @@ set completeopt=menu,preview
 " Map all keys to Auto complete
 let letter = 'a'
 if len(letter) == 1
-    while letter <= 'z'
-        execute 'imap ' letter letter . '<C-N><C-P>'
-        let letter = nr2char(char2nr(letter)+1)
-    endwhile
+  while letter <= 'z'
+    execute 'imap ' letter letter . '<C-N><C-P>'
+    let letter = nr2char(char2nr(letter)+1)
+  endwhile
 endif
 
 
@@ -534,9 +529,9 @@ iab xfile <C-R>=expand("%:t:r")<CR>
 
 
 
-if dein#check_install()
-  call dein#install()
-endif
+" if dein#check_install()
+"   call dein#install()
+" endif
 
 " start NeoBundleCheck in the absence of .vim/bundle
 " if !isdirectory("~/.vim/bundle")
