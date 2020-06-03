@@ -31,7 +31,7 @@ backup:
 
 update:
 	@echo "Updating via dein"
-	$(VIM) -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
+	$(VIM) -c "call dein#recache_runtimepath()" -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 
 install: 
 	@echo "Running setup script"
