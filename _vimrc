@@ -32,6 +32,10 @@ if dein#load_state('~/.vim/bundles')
 
   call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
 
   call dein#add('rizzatti/dash.vim')
   call dein#add('sukima/xmledit')
@@ -357,9 +361,9 @@ set whichwrap+=<,>,h,l
 
 if !has("gui_vimr")
   " set guifont=Hack:h16
-  " set guifont=Source\ Code\ Pro:h14
+  " set guifont=Source\ Code\ Pro:h16
+  " set guifont=Menlo:h16
   set guifont=SF\ Mono\ Light:h16
-  "set guifont=Menlo:h18
 endif
 
 set encoding=utf-8
