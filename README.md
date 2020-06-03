@@ -1,1 +1,1 @@
-NeoBundle managed vim configuration for myself
+dein managed vim configuration for myself
