@@ -39,7 +39,7 @@ install:
 	@echo "Linking .vimrc"
 	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
 	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
-	$(VIM) +"call dein#install()"
+	$(VIM) -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 	@echo
 	@echo "Vim setup finished"
 
