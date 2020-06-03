@@ -10,8 +10,7 @@ DIR_BUNDLE=bundles
 DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
 
 DEIN_INSTALLER=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
-DEIN_DIR=${PWD}/bundles
-DEIN_PREINSTALL=$(shell mkdir -p $(DEIN_DIR); cd $(DIR_VIMFILES))
+DEIN_DIR=${PWD}/${DIR_BUNDLE}
 
 VIMRC=${HOME}/.vimrc
 GVIMRC=${HOME}/.gvimrc
@@ -26,8 +25,13 @@ check: link-neovim
 
 backup:
 	$(RM) -f "$(VIMRC).bk" "$(GVIMRC).bk"
+	$(CP) $(DEIN_DIR) "$(DEIN_DIR).bk"
 	$(CP) -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
 	$(CP) -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
+
+update:
+	@echo "Updating via dein"
+	$(VIM) -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 
 install: 
 	@echo "Running setup script"
