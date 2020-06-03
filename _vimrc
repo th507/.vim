@@ -398,12 +398,12 @@ au FileType css setl ofu=csscomplete#CompleteCSS
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 
-" set guifont=Mononoki:h16
-" set guifont=Hack:h16
-" set guifont=Noto\ Sans\ Mono\ CJK\ SC:h14
-" set guifont=Source\ Code\ Pro:h14
-set guifont=SF\ Mono\ Light:h16
-"set guifont=Menlo:h18
+if !has("gui_vimr")
+  " set guifont=Hack:h16
+  " set guifont=Source\ Code\ Pro:h14
+  set guifont=SF\ Mono\ Light:h16
+  "set guifont=Menlo:h18
+endif
 
 set encoding=utf-8
 
