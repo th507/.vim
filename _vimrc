@@ -262,7 +262,7 @@ filetype plugin indent on
 set noswapfile
 set nobackup
 if has('persistent_undo')
-    set noundofile
+  set noundofile
 endif
 
 set tabstop=2
@@ -369,18 +369,18 @@ endif
 " If there is no fold at current line, just moves forward.
 " If it is present, reverse it's state.
 function! ToggleFold()
-    if foldlevel('.') == 0
-    normal! l
-    "visual! zf<CR>
+  if foldlevel('.') == 0
+  normal! l
+  "visual! zf<CR>
+  else
+    if foldclosed('.') < 0
+      . foldclose
     else
-        if foldclosed('.') < 0
-            . foldclose
-        else
-            . foldopen
-        endif
+      . foldopen
     endif
-    " Clear status line
-    echo
+  endif
+  " Clear status line
+  echo
 endfunction
 
 " Toggle Fold in Normal Mode
@@ -411,7 +411,7 @@ set fileencodings=ucs-bom,utf-8,cp932,cp936,big5,euc-jp,euc-kr,latin1
 
 " set background=dark
 try
-    colo molokai
+  colo molokai
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
@@ -443,12 +443,12 @@ au BufRead, BufNewFile *.taskpaper set nonu
 " compile sass
 " http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
 function! GoToSASSConfigDir()
-    if filereadable("config.rb") || isdirectory("usr")
-        silent! exec "!compass compile %"
-    else
-        silent! exec 'cd ../'
-        call GoToSASSConfigDir()
-    endif 
+  if filereadable("config.rb") || isdirectory("usr")
+    silent! exec "!compass compile %"
+  else
+    silent! exec 'cd ../'
+    call GoToSASSConfigDir()
+  endif 
 endfunction
 
 " au BufWritePost *.scss :call GoToSASSConfigDir()
@@ -480,11 +480,11 @@ if did_filetype()
   finish
 endif
 if getline(1) =~# '^#!.*/bin/env\s\+node\>'
-    setfiletype javascript
+  setfiletype javascript
 else
-    if getline(1) =~# '^#!.*/bin/env\s\+coffee\>'
-        setfiletype coffee
-    endif
+  if getline(1) =~# '^#!.*/bin/env\s\+coffee\>'
+    setfiletype coffee
+  endif
 endif
 
 " KEYMAP
@@ -547,14 +547,14 @@ command! -nargs=0 Root call GoToRootDir()
 
 let g:Transparency = 0
 function! ToggleTransparency()
-    echo g:Transparency
-    if g:Transparency > 50
-        set transparency=0
-        let g:Transparency = 0
-    else
-        set transparency=60
-        let g:Transparency = 60
-    endif
+  echo g:Transparency
+  if g:Transparency > 50
+    set transparency=0
+    let g:Transparency = 0
+  else
+    set transparency=60
+    let g:Transparency = 60
+  endif
 endfunction
 
 map <D-0> :call ToggleTransparency()<CR>
