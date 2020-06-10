@@ -32,10 +32,10 @@ if dein#load_state('~/.vim/bundles')
 
   call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
+  "if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+  "endif
 
   call dein#add('rizzatti/dash.vim')
   call dein#add('sukima/xmledit')
