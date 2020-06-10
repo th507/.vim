@@ -1,9 +1,7 @@
-MD := @mkdir
 RM := rm
 CD := @cd
 CP := @cp
 LN := @ln
-VIM:= @vim
 
 DIR_VIMFILES=${PWD}
 DIR_BUNDLE=bundles
@@ -11,17 +9,16 @@ DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
 
 DEIN_INSTALLER=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
 DEIN_DIR=${PWD}/${DIR_BUNDLE}
+DEIN_INSTALLER_DIR=${DEIN_DIR}/repos/github.com/Shougo/dein.vim
+DEIN_INSTALLER_LOCAL=${DEIN_INSTALLER_DIR}/bin/installer.sh
 
-VIMRC=${HOME}/.vimrc
-GVIMRC=${HOME}/.gvimrc
+VIMRC="${HOME}/.vimrc"
+GVIMRC="${HOME}/.gvimrc"
 
 all: install
 
 clean:
 	$(RM) -rf $(DIR_BUNDLE)
-
-check: link-neovim
-	$(MD) -p $(DIR_NEO)
 
 backup:
 	$(RM) -f "$(VIMRC).bk" "$(GVIMRC).bk"
@@ -29,23 +26,26 @@ backup:
 	$(CP) -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
 	$(CP) -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
 
-update:
+u up update:
 	@echo "Updating via dein"
-	$(VIM) -c "call dein#recache_runtimepath()" -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
+	vim -c "call dein#recache_runtimepath()" -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 
-install: 
+fetch:
 	@echo "Running setup script"
-	curl -sSL "$(DEIN_INSTALLER)" | bash /dev/stdin $(DEIN_DIR)
+	[ -f ${DEIN_INSTALLER_LOCAL} ] && sh -c "cd ${DEIN_INSTALLER_DIR}; git pull --ff-only; ${DEIN_INSTALLER_LOCAL} ${DEIN_DIR}" || curl -sSL "$(DEIN_INSTALLER)" | bash /dev/stdin $(DEIN_DIR)
+
+link: check-nvim fetch
 	@echo "Linking .vimrc"
-	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
-	$(LN) -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
-	$(VIM) -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
+	ln -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
+	ln -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
+
+i install: link update
+	#vim -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 	@echo
 	@echo "Vim setup finished"
 
+check-nvim:
+	hash nvim &>/dev/null && mkdir -p $(DIR_CONFIG_FOR_NEOVIM)
 
-check-neovim:
-	$(MD) -p $(DIR_CONFIG_FOR_NEOVIM)
-
-link-neovim: check-neovim
-	$(LN) -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
+nvim neovim link-nvim: check-nvim
+	hash nvim &>/dev/null && ln -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
