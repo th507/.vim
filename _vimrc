@@ -11,7 +11,7 @@ set background=dark
 set ttyfast
 
 if has("gui_running")
-    set lines=50 columns=90
+    set lines=50 columns=100
 endif
 
 if !has('nvim')
