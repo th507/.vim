@@ -10,9 +10,11 @@ set background=dark
 " more redraws
 set ttyfast
 
-if has("gui_running")
-    set lines=50 columns=100
-endif
+" if has("gui_running")
+"   if !has("gui_vimr")
+"     set lines=50 columns=80
+"   endif
+" endif
 
 if !has('nvim')
     set ttymouse=xterm2
