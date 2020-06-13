@@ -40,6 +40,9 @@ if dein#load_state('~/.vim/bundles')
   "endif
 
   call dein#add('rizzatti/dash.vim')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('rust-lang/rust.vim')
+  call dein#add('fatih/vim-go')
   call dein#add('sukima/xmledit')
   call dein#add('mattn/emmet-vim')
   call dein#add('maxmellon/vim-jsx-pretty')
@@ -69,8 +72,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tacahiroy/ctrlp-funky')
   call dein#add('tpope/vim-fugitive')
   call dein#add('aklt/plantuml-syntax')
-  call dein#add('pangloss/vim-javascript')
-  call dein#add('rust-lang/rust.vim')
   call dein#add('jdkanani/vim-material-theme')
   call dein#add('MaxMEllon/vim-jsx-pretty')
 
