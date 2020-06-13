@@ -73,8 +73,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('jdkanani/vim-material-theme')
   call dein#add('MaxMEllon/vim-jsx-pretty')
 
-  "if !has('nvim')
-  "endif
 
   call dein#end()
   call dein#save_state()
