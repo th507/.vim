@@ -7,10 +7,9 @@ DIR_VIMFILES=${PWD}
 DIR_BUNDLE=bundles
 DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
 
-DEIN_INSTALLER=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
 DEIN_DIR=${PWD}/${DIR_BUNDLE}
-DEIN_INSTALLER_DIR=${DEIN_DIR}/repos/github.com/Shougo/dein.vim
-DEIN_INSTALLER_LOCAL=${DEIN_INSTALLER_DIR}/bin/installer.sh
+DEIN_REPO=github.com/Shougo/dein.vim
+DEIN_INSTALLER_DIR=${DEIN_DIR}/repos/${DEIN_REPO}
 
 VIMRC="${HOME}/.vimrc"
 GVIMRC="${HOME}/.gvimrc"
@@ -34,7 +33,7 @@ fetch:
 	@echo "Running setup script"
 	[ -d "${DEIN_INSTALLER_DIR}/.git" ] && \
 	sh -c "cd ${DEIN_INSTALLER_DIR}; git pull --ff-only" || \
-	sh -c "mkdir -p ${DEIN_INSTALLER_DIR}; git clone https://github.com/Shougo/dein.vim ${DEIN_INSTALLER_DIR}"
+	sh -c "mkdir -p ${DEIN_INSTALLER_DIR}; git clone https://${DEIN_REPO} ${DEIN_INSTALLER_DIR}"
 
 
 link: link-nvim
@@ -43,7 +42,6 @@ link: link-nvim
 	ln -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
 
 i install: fetch link update
-	#vim -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 	@echo
 	@echo "Vim setup finished"
 
