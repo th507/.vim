@@ -32,7 +32,10 @@ u up update:
 
 fetch:
 	@echo "Running setup script"
-	[ -f ${DEIN_INSTALLER_LOCAL} ] && sh -c "cd ${DEIN_INSTALLER_DIR}; git pull --ff-only; ${DEIN_INSTALLER_LOCAL} ${DEIN_DIR}" || curl -sSL "$(DEIN_INSTALLER)" | bash /dev/stdin $(DEIN_DIR)
+	[ -d "${DEIN_INSTALLER_DIR}/.git" ] && \
+	sh -c "cd ${DEIN_INSTALLER_DIR}; git pull --ff-only" || \
+	sh -c "mkdir -p ${DEIN_INSTALLER_DIR}; git clone https://github.com/Shougo/dein.vim ${DEIN_INSTALLER_DIR}"
+
 
 link: link-nvim
 	@echo "Linking .vimrc"
@@ -45,7 +48,7 @@ i install: fetch link update
 	@echo "Vim setup finished"
 
 check-nvim:
-	hash nvim &>/dev/null && mkdir -p $(DIR_CONFIG_FOR_NEOVIM)
+	hash nvim &>/dev/null && mkdir -p $(DIR_CONFIG_FOR_NEOVIM) || echo 'Skipping nvim'
 
 nvim neovim link-nvim: check-nvim
 	hash nvim &>/dev/null && [ -d "$(DIR_CONFIG_FOR_NEOVIM)/nvim" ] || ln -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
