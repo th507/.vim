@@ -25,9 +25,17 @@ backup:
 	$(CP) -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
 	$(CP) -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
 
-u up update:
+prune:
+	@echo "Pruning vim plugin"
+	vim \
+		-c "call dein#recache_runtimepath()" \
+		-N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
+
+u up update: prune
 	@echo "Updating via dein"
-	vim -c "call dein#recache_runtimepath()" -c "try | call dein#update() | finally | qall! | endtry" -N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
+	vim \
+		-c "try | call dein#update() | finally | qall! | endtry" \
+		-N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 
 fetch:
 	@echo "Running setup script"
@@ -50,3 +58,4 @@ check-nvim:
 
 nvim neovim link-nvim: check-nvim
 	hash nvim &>/dev/null && [ -d "$(DIR_CONFIG_FOR_NEOVIM)/nvim" ] || ln -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
+	[ -d "${DIR_VIMFILES}/.vim" ] && rm -fr "${DIR_VIMFILES}/.vim" || echo ''
