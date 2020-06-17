@@ -1,8 +1,4 @@
-RM := @rm
 CD := @cd
-CP := @cp
-LN := @ln
-
 DIR_VIMFILES=${PWD}
 DIR_BUNDLE=bundles
 DIR_CONFIG_FOR_NEOVIM=${HOME}/.config
@@ -17,13 +13,13 @@ GVIMRC="${HOME}/.gvimrc"
 all: install
 
 clean:
-	$(RM) -rf $(DIR_BUNDLE)
+	rm -rf $(DIR_BUNDLE)
 
 backup:
-	$(RM) -f "$(VIMRC).bk" "$(GVIMRC).bk"
-	$(CP) $(DEIN_DIR) "$(DEIN_DIR).bk"
-	$(CP) -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
-	$(CP) -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
+	rm -f "$(VIMRC).bk" "$(GVIMRC).bk"
+	cp $(DEIN_DIR) "$(DEIN_DIR).bk"
+	cp -f $(VIMRC) "$(VIMRC).bk" 2>/dev/null
+	cp -f $(GVIMRC) "$(GVIMRC).bk" 2>/dev/null
 
 prune:
 	@echo "Pruning vim plugin"
@@ -39,23 +35,23 @@ u up update: prune
 
 fetch:
 	@echo "Running setup script"
-	[ -d "${DEIN_INSTALLER_DIR}/.git" ] && \
+	@[ -d "${DEIN_INSTALLER_DIR}/.git" ] && \
 	git -C ${DEIN_INSTALLER_DIR} pull --ff-only || \
 	git clone https://${DEIN_REPO} ${DEIN_INSTALLER_DIR}
 
 
 link: link-nvim
 	@echo "Linking .vimrc"
-	ln -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
-	ln -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
+	@ln -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
+	@ln -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
 
 i install: fetch link update
 	@echo
 	@echo "Vim setup finished"
 
 check-nvim:
-	hash nvim &>/dev/null && mkdir -p $(DIR_CONFIG_FOR_NEOVIM) || echo 'Skipping nvim'
+	@hash nvim &>/dev/null && mkdir -p $(DIR_CONFIG_FOR_NEOVIM) || echo 'Skipping nvim'
 
 nvim neovim link-nvim: check-nvim
-	hash nvim &>/dev/null && [ -d "$(DIR_CONFIG_FOR_NEOVIM)/nvim" ] || ln -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
-	[ -d "${DIR_VIMFILES}/.vim" ] && rm -fr "${DIR_VIMFILES}/.vim" || echo ''
+	@hash nvim &>/dev/null && [ -d "$(DIR_CONFIG_FOR_NEOVIM)/nvim" ] || ln -fs "$(DIR_VIMFILES)" "$(DIR_CONFIG_FOR_NEOVIM)/nvim"
+	@[ -d "${DIR_VIMFILES}/.vim" ] && rm -fr "${DIR_VIMFILES}/.vim" || echo 'No redundant alias.'
