@@ -39,6 +39,9 @@ if dein#load_state('~/.vim/bundles')
     call dein#add('roxma/vim-hug-neovim-rpc')
   "endif
 
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
+
   call dein#add('rizzatti/dash.vim')
   call dein#add('pangloss/vim-javascript')
   call dein#add('rust-lang/rust.vim')
