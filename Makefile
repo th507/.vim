@@ -1,4 +1,4 @@
-RM := rm
+RM := @rm
 CD := @cd
 CP := @cp
 LN := @ln
@@ -40,8 +40,8 @@ u up update: prune
 fetch:
 	@echo "Running setup script"
 	[ -d "${DEIN_INSTALLER_DIR}/.git" ] && \
-	sh -c "cd ${DEIN_INSTALLER_DIR}; git pull --ff-only" || \
-	sh -c "mkdir -p ${DEIN_INSTALLER_DIR}; git clone https://${DEIN_REPO} ${DEIN_INSTALLER_DIR}"
+	git -C ${DEIN_INSTALLER_DIR} pull --ff-only || \
+	git clone https://${DEIN_REPO} ${DEIN_INSTALLER_DIR}
 
 
 link: link-nvim
