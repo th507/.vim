@@ -17,7 +17,7 @@ set ttyfast
 " endif
 
 if !has('nvim')
-  set ttymouse=xterm2
+    set ttymouse=xterm2
 endif
 
 if &compatible
@@ -39,10 +39,8 @@ if dein#load_state('~/.vim/bundles')
     call dein#add('roxma/vim-hug-neovim-rpc')
   "endif
 
-  if !has('nvim')
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
-  endif
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
 
   call dein#add('rizzatti/dash.vim')
   call dein#add('pangloss/vim-javascript')
