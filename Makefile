@@ -24,7 +24,7 @@ backup:
 prune:
 	@echo "Pruning vim plugin"
 	vim \
-		-c "call dein#recache_runtimepath()" \
+		-c "try | call dein#recache_runtimepath() | finally | qall! | endtry" \
 		-N -u ${VIMRC} -U NONE -i NONE -V1 -e -s
 
 u up update: prune
