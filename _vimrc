@@ -24,6 +24,7 @@ if &compatible
   set nocompatible
 endif
 
+
 " Add the dein installation directory into runtimepath
 if has('vim_starting')
   set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
@@ -83,11 +84,11 @@ if dein#load_state('~/.vim/bundles')
   call dein#save_state()
 endif
 
-
 map <Leader>d :Dash<CR>
 
-" HTML related
-
+" powerline
+let g:airline_powerline_fonts=1
+let g:Powerline_symbols='unicode'
 
 " Expose
 " if you want to use overlay feature
