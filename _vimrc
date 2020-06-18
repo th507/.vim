@@ -538,12 +538,6 @@ iab xdatestamp <C-R>=strftime("%m,%d,%Y")<CR>
 iab xfile <C-R>=expand("%:t:r")<CR>
 
 
-
 " if dein#check_install()
 "   call dein#install()
-" endif
-
-" start NeoBundleCheck in the absence of .vim/bundle
-" if !isdirectory("~/.vim/bundle")
-"   NeoBundleCheck
 " endif
