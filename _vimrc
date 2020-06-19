@@ -72,12 +72,13 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('jtratner/vim-flavored-markdown')
   call dein#add('leafgarland/typescript-vim')
   call dein#add('Keithbsmiley/swift.vim')
-  call dein#add('kien/ctrlp.vim')
+  call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('tacahiroy/ctrlp-funky')
   call dein#add('tpope/vim-fugitive')
   call dein#add('aklt/plantuml-syntax')
   call dein#add('jdkanani/vim-material-theme')
   call dein#add('MaxMEllon/vim-jsx-pretty')
+  call dein#add('davidoc/taskpaper.vim')
 
 
   call dein#end()
@@ -140,7 +141,6 @@ let jshint2_height = 10
 
 
 " TaskPaper
-" NeoBundle 'davidoc/taskpaper.vim'
 " NeoBundle 'mattn/calendar-vim'
 
 " why do you aks
@@ -478,7 +478,7 @@ inoremap <silent><F2> <C-O>:tabnext<CR>
 
 " bufferlist
 let g:BufferListWidth = 25
-let g:BufferListMaxWidth = 50
+let g:BufferListMaxWidth = 40
 map <Leader><Leader> :BuffergatorToggle<CR>
 vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
 inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
