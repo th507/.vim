@@ -43,8 +43,17 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
 
+  " FZF_BEGIN$
+  if executable('fzf')
+    set rtp+=/usr/local/opt/fzf
+    call dein#add('junegunn/fzf.vim')
+    map <Leader>f :FZF<CR>
+  endif
+  " FZF_END$
+
   call dein#add('rizzatti/dash.vim')
   call dein#add('pangloss/vim-javascript')
+  call dein#add('elzr/vim-json')
   call dein#add('rust-lang/rust.vim')
   call dein#add('fatih/vim-go')
   call dein#add('sukima/xmledit')
@@ -72,8 +81,10 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('jtratner/vim-flavored-markdown')
   call dein#add('leafgarland/typescript-vim')
   call dein#add('Keithbsmiley/swift.vim')
+
   call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('tacahiroy/ctrlp-funky')
+
   call dein#add('tpope/vim-fugitive')
   call dein#add('aklt/plantuml-syntax')
   call dein#add('jdkanani/vim-material-theme')
@@ -87,9 +98,40 @@ endif
 
 map <Leader>d :Dash<CR>
 
+
+
+  " quickly locate files
+  let g:ctrlp_extensions = ['funky']
+  nnoremap <Leader>fU :CtrlPFunky<Cr>
+  " narrow the list down with a word under cursor
+  nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll|ttf)$'
+    \ }
+  " http://robots.thoughtbot.com/faster-grepping-in-vim
+
+  " why do you aks
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+
+  " The Silver Searcher
+  if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+  endif
+  noremap ??? :CtrlP<CR>
+
+
 " powerline
-let g:airline_powerline_fonts=1
-let g:Powerline_symbols='unicode'
+"let g:airline_powerline_fonts=1
+"let g:Powerline_symbols='unicode'
 
 " Expose
 " if you want to use overlay feature
@@ -116,22 +158,7 @@ let jshint2_height = 10
 "NeoBundle 'ervandew/matchem'
 
 
-" NeoBundle 'junegunn/fzf', {
-"                 \ 'build': {
-"                     \ 'mac': './install',
-"                     \ 'unix': './install',
-"                 \ },
-"             \ }
 "
-" NeoBundle 'Shougo/vimproc.vim', {
-"       \ 'build' : {
-"       \     'windows' : 'tools\\update-dll-mingw',
-"       \     'cygwin' : 'make -f make_cygwin.mak',
-"       \     'mac' : 'make',
-"       \     'linux' : 'make',
-"       \     'unix' : 'gmake',
-"       \    },
-"       \ }
 " NeoBundle 'Shougo/vimshell.vim'
 " let g:vimshell_prompt = '$'
 " " Use current directory as vimshell prompt.
@@ -143,33 +170,10 @@ let jshint2_height = 10
 " TaskPaper
 " NeoBundle 'mattn/calendar-vim'
 
-" why do you aks
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Swift language
 
-" quickly locate files
-let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fU :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|ttf)$'
-  \ }
-" http://robots.thoughtbot.com/faster-grepping-in-vim
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 " let g:javascript_conceal_return               = "⇚"
 " let g:javascript_conceal_arrow_function       = "⇒"
 " let g:javascript_conceal_this                 = "@"
@@ -300,7 +304,6 @@ set wildignore=*.bak,*.toc,*.out,*.log,*.aux,*.out,*~,node_modules/*
 "   set clipboard=unnamed " copy to the system clipboard
 " endif
 
-noremap ??? :CtrlP<CR>
 " swapping G and <c-g>
 " noremap G <C-G>
 " noremap <C-G> G
@@ -409,12 +412,12 @@ au BufRead, BufNewFile *.taskpaper set nonu
 
 " compile sass
 " http://ellengummesson.com/blog/2013/05/20/a-handy-function-for-going-to-the-root-directory-of-a-project-in-vim/
-function! GoToSASSConfigDir()
+function! Grt()
   if filereadable("config.rb") || isdirectory("usr")
     silent! exec "!compass compile %"
   else
     silent! exec 'cd ../'
-    call GoToSASSConfigDir()
+    call Grt()
   endif 
 endfunction
 
@@ -449,8 +452,8 @@ endif
 if getline(1) =~# '^#!.*/bin/env\s\+node\>'
   setfiletype javascript
 else
-  if getline(1) =~# '^#!.*/bin/env\s\+coffee\>'
-    setfiletype coffee
+  if getline(1) =~# '^#!.*/bin/env\s\+xcrun\>'
+    setfiletype swift
   endif
 endif
 
@@ -487,9 +490,9 @@ map <D-P> :sav<CR>
 vnoremap <silent><D-P> <C-C>:sav<CR>
 inoremap <silent><D-P> <C-O>:sav<CR>
 
-map <D-P> :!node --harmony %<CR>
-vnoremap <silent><D-P> <C-C>:!node --harmony %<CR>
-inoremap <silent><D-P> <C-O>:!node --harmony %<CR>
+" map <D-P> :!node --harmony %<CR>
+" vnoremap <silent><D-P> <C-C>:!node --harmony %<CR>
+" inoremap <silent><D-P> <C-O>:!node --harmony %<CR>
 
 
 " tab new
