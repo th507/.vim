@@ -42,8 +42,8 @@ fetch:
 
 link: link-nvim
 	@echo "Linking .vimrc"
-	@ln -fs "$(DIR_VIMFILES)/_vimrc" $(VIMRC)
-	@ln -fs "$(DIR_VIMFILES)/_vimrc" $(GVIMRC)
+	@ln -fs "$(DIR_VIMFILES)/init.vim" $(VIMRC)
+	@ln -fs "$(DIR_VIMFILES)/init.vim" $(GVIMRC)
 
 i install: fetch link update
 	@echo
