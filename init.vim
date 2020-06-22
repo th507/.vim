@@ -47,7 +47,7 @@ if dein#load_state('~/.vim/bundles')
   if executable('fzf')
     set rtp+=/usr/local/opt/fzf
     call dein#add('junegunn/fzf.vim')
-    map <Leader>f :FZF<CR>
+    noremap <Leader>f :FZF<CR>
   endif
   " FZF_END$
 
@@ -96,7 +96,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#save_state()
 endif
 
-map <Leader>d :Dash<CR>
+nnoremap <Leader>d :Dash<CR>
 
 
 " http://robots.thoughtbot.com/faster-grepping-in-vim
