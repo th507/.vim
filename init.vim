@@ -99,34 +99,35 @@ endif
 map <Leader>d :Dash<CR>
 
 
+" http://robots.thoughtbot.com/faster-grepping-in-vim
+" quickly locate files
+let g:ctrlp_extensions = ['funky']
+nnoremap <Leader>fU :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|ttf)$'
+  \ }
 
-  " quickly locate files
-  let g:ctrlp_extensions = ['funky']
-  nnoremap <Leader>fU :CtrlPFunky<Cr>
-  " narrow the list down with a word under cursor
-  nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll|ttf)$'
-    \ }
-  " http://robots.thoughtbot.com/faster-grepping-in-vim
+let g:ctrlp_switch_buffer = 'Et'
 
-  " why do you aks
-  let g:ackprg = 'ag --nogroup --nocolor --column'
+" why do you aks
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
-  " The Silver Searcher
-  if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-  endif
-  noremap ??? :CtrlP<CR>
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+noremap ??? :CtrlP<CR>
 
 
 " powerline
@@ -153,33 +154,11 @@ nmap = <Plug>(choosewin-swap)
 "let jshint2_save = 1
 let jshint2_height = 10
 
-
 " auto add closing quotes, parens, brackets, curlies, etc
 "NeoBundle 'ervandew/matchem'
 
-
-"
-" NeoBundle 'Shougo/vimshell.vim'
-" let g:vimshell_prompt = '$'
-" " Use current directory as vimshell prompt.
-" let g:vimshell_prompt_expr =
-" \ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-" let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-
-
 " TaskPaper
 " NeoBundle 'mattn/calendar-vim'
-
-
-" Swift language
-
-
-" let g:javascript_conceal_return               = "⇚"
-" let g:javascript_conceal_arrow_function       = "⇒"
-" let g:javascript_conceal_this                 = "@"
-" set conceallevel=1
-
-
 
 " i j k l for up, left, down, and right
 " h for insert mode
