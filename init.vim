@@ -52,6 +52,7 @@ if dein#load_state('~/.vim/bundles')
   " FZF_END$
 
   call dein#add('0x84/vim-coderunner')
+  call dein#add('lervag/vimtex')
 
   call dein#add('rizzatti/dash.vim')
   call dein#add('pangloss/vim-javascript')
@@ -364,6 +365,14 @@ try
   colo molokai
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
+
+function! RandomColorScheme()
+  let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+  exe 'so ' . mycolors[srand()[0] % len(mycolors)]
+  unlet mycolors
+endfunction
+
+map <D-)> :call RandomColorScheme()<CR>:colo<CR>
 
 " au BufRead,BufNewFile *.coffee set ft=coffee
 " au Filetype coffee set tabstop=2
