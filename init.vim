@@ -51,6 +51,8 @@ if dein#load_state('~/.vim/bundles')
   endif
   " FZF_END$
 
+  call dein#add('0x84/vim-coderunner')
+
   call dein#add('rizzatti/dash.vim')
   call dein#add('pangloss/vim-javascript')
   call dein#add('elzr/vim-json')
@@ -335,7 +337,6 @@ endfunction
 " Toggle Fold in Normal Mode
 noremap <Leader>] :call ToggleFold()<CR>
 
-
 " There are conflicts with the AutoComplPop script.
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
@@ -351,7 +352,7 @@ if !has("gui_vimr")
   " set guifont=Hack:h16
   " set guifont=Source\ Code\ Pro:h16
   " set guifont=Menlo:h16
-  set guifont=SF\ Mono\ Light:h16
+  set guifont=SF\ Mono\ Light:h14
 endif
 
 set encoding=utf-8
@@ -461,23 +462,22 @@ inoremap <silent><F2> <C-O>:tabnext<CR>
 " bufferlist
 let g:BufferListWidth = 25
 let g:BufferListMaxWidth = 40
-map <Leader><Leader> :BuffergatorToggle<CR>
-vnoremap <silent><Leader><Leader> <C-C>:BuffergatorToggle<CR>
-inoremap <silent><Leader><Leader> <C-O>:BuffergatorToggle<CR>
+map <D-Bslash> :BuffergatorToggle<CR>
+vnoremap <silent><D-Bslash> <C-C>:BuffergatorToggle<CR>
+inoremap <silent><D-Bslash> <C-O>:BuffergatorToggle<CR>
 
-map <D-P> :sav<CR>
-vnoremap <silent><D-P> <C-C>:sav<CR>
-inoremap <silent><D-P> <C-O>:sav<CR>
-
-" map <D-P> :!node --harmony %<CR>
-" vnoremap <silent><D-P> <C-C>:!node --harmony %<CR>
-" inoremap <silent><D-P> <C-O>:!node --harmony %<CR>
+" noremap <D-P> :sav<CR>
+" vnoremap <silent><D-P> <C-C>:sav<CR>
+" inoremap <silent><D-P> <C-O>:sav<CR>
 
 
 " tab new
-map <D-T> :tabnew<CR>
-vnoremap <silent><D-T> <C-C>:tabnew<CR>
-inoremap <silent><D-T> <C-O>:tabnew<CR>
+" map <D-t> :tabnew<CR>
+" vnoremap <silent><D-t> <C-C>:tabnew<CR>
+" inoremap <silent><D-t> <C-O>:tabnew<CR>
+
+inoremap <silent><D-r> <C-O>:RunCode %<CR>
+
 
 " Re-indent the code
 map <C-P><C-I> :normal ggVG=<CR>
