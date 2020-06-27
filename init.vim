@@ -17,7 +17,7 @@ set ttyfast
 " endif
 
 if !has('nvim')
-    set ttymouse=xterm2
+  set ttymouse=xterm2
 endif
 
 if &compatible
@@ -40,8 +40,10 @@ if dein#load_state('~/.vim/bundles')
     call dein#add('roxma/vim-hug-neovim-rpc')
   "endif
 
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
+  "call dein#add('vim-airline/vim-airline')
+  "call dein#add('vim-airline/vim-airline-themes')
+  ""or
+  call dein#add('itchyny/lightline.vim')
 
   " FZF_BEGIN$
   if executable('fzf')
@@ -136,6 +138,9 @@ noremap ??? :CtrlP<CR>
 " powerline
 "let g:airline_powerline_fonts=1
 "let g:Powerline_symbols='unicode'
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " Expose
 " if you want to use overlay feature
