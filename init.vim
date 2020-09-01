@@ -490,7 +490,7 @@ inoremap <silent><D-Bslash> <C-O>:BuffergatorToggle<CR>
 " vnoremap <silent><D-t> <C-C>:tabnew<CR>
 " inoremap <silent><D-t> <C-O>:tabnew<CR>
 
-inoremap <silent><D-r> <C-O>:RunCode %<CR>
+inoremap <silent><D-r> <C-O>:update <bar> RunCode %<CR>
 
 
 " Re-indent the code
