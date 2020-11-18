@@ -93,7 +93,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tpope/vim-fugitive')
   call dein#add('aklt/plantuml-syntax')
   call dein#add('jdkanani/vim-material-theme')
-  call dein#add('MaxMEllon/vim-jsx-pretty')
   call dein#add('davidoc/taskpaper.vim')
 
 
@@ -161,6 +160,9 @@ nmap = <Plug>(choosewin-swap)
 
 "let jshint2_save = 1
 let jshint2_height = 10
+
+":help vimtex-tex-flavor
+let g:tex_flavor = 'latex'
 
 " auto add closing quotes, parens, brackets, curlies, etc
 "NeoBundle 'ervandew/matchem'
