@@ -12,7 +12,7 @@ GVIMRC="${HOME}/.gvimrc"
 
 all: install
 
-clean:
+clean: prune
 	rm -rf $(DIR_BUNDLE)
 
 backup:

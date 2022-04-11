@@ -43,7 +43,7 @@ if dein#load_state('~/.vim/bundles')
   "call dein#add('vim-airline/vim-airline')
   "call dein#add('vim-airline/vim-airline-themes')
   ""or
-  call dein#add('itchyny/lightline.vim')
+  "call dein#add('itchyny/lightline.vim')
 
   " FZF_BEGIN$
   if executable('fzf')
@@ -94,11 +94,15 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('aklt/plantuml-syntax')
   call dein#add('jdkanani/vim-material-theme')
   call dein#add('davidoc/taskpaper.vim')
-
+  " jsx
+  call dein#add('MaxMEllon/vim-jsx-pretty')
 
   call dein#end()
   call dein#save_state()
 endif
+
+filetype plugin indent on
+syntax on
 
 nnoremap <Leader>d :Dash<CR>
 
@@ -216,8 +220,6 @@ set backspace=indent,eol,start
 set splitbelow
 set splitright
 
-syntax on
-filetype plugin indent on
 
 set noswapfile
 set nobackup
@@ -359,8 +361,8 @@ set whichwrap+=<,>,h,l
 if !has("gui_vimr")
   " set guifont=Hack:h16
   " set guifont=Source\ Code\ Pro:h16
-  " set guifont=Menlo:h16
-  set guifont=SF\ Mono\ Light:h14
+  set guifont=Menlo:h16
+  "set guifont=SF\ Mono\ Light:h14
 endif
 
 set encoding=utf-8
@@ -403,6 +405,8 @@ au Filetype html set foldmethod=manual
 au BufRead,BufNewFile *.taskpapertheme set ft=xml
 
 au BufRead,BufNewFile *.ft set ft=markdown
+au BufRead,BufNewFile *.js set ft=javascriptreact
+
 " set no fileline for taskpaper
 au BufRead, BufNewFile *.taskpaper set nonu
 
