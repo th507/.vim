@@ -95,7 +95,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('jdkanani/vim-material-theme')
   call dein#add('davidoc/taskpaper.vim')
   " jsx
-  call dein#add('MaxMEllon/vim-jsx-pretty')
 
   call dein#end()
   call dein#save_state()
